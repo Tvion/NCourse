@@ -12,9 +12,9 @@ public class Circle {
         this.radius = radius;
     }
 
-    public Circle(double radius, String color){
-        this.radius=radius;
-        this.color=color;
+    public Circle(double radius, String color) {
+        this.radius = radius;
+        this.color = color;
     }
 
 
@@ -35,12 +35,12 @@ public class Circle {
     }
 
     @Override
-    public String toString(){
-        return "Circle[radius="+radius+",color="+color;
+    public String toString() {
+        return "Circle[radius=" + radius + ",color=" + color;
     }
 
-    public double getArea(){
-        return Math.PI*Math.pow(radius,2);
+    public double getArea() {
+        return Math.PI * Math.pow(radius, 2);
     }
 
 

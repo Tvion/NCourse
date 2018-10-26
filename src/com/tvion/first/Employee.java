@@ -27,8 +27,8 @@ public class Employee {
         return lastName;
     }
 
-    public String getName(){
-        return getFirstName()+" "+getLastName();
+    public String getName() {
+        return getFirstName() + " " + getLastName();
     }
 
     public int getSalary() {
@@ -39,17 +39,17 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getAnnualSalary(){
-        return salary*12;
+    public int getAnnualSalary() {
+        return salary * 12;
     }
 
-    public int raiseSalary(int percent){
-        return salary+=salary*percent/100;
+    public int raiseSalary(int percent) {
+        return salary += salary * percent / 100;
     }
 
     @Override
     public String toString() {
-        return "Employee[id="+id+",name="+firstName+" "+lastName+",salary="+salary+"]";
+        return "Employee[id=" + id + ",name=" + firstName + " " + lastName + ",salary=" + salary + "]";
     }
 
 }

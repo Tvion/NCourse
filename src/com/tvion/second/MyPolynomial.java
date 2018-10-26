@@ -53,13 +53,13 @@ public class MyPolynomial {
 
     public MyPolynomial multiply(MyPolynomial right) {
         int maxDegree = this.getDegree() + right.getDegree();
-        double[] degrees = new double[maxDegree + 1];
+        double[] newCoeffs = new double[maxDegree + 1];
         for (int i = 0; i < this.getDegree() + 1; i++) {
             for (int j = 0; j < right.getDegree() + 1; j++) {
-                degrees[i + j] += this.coeffs[i] * right.coeffs[j];
+                newCoeffs[i + j] += this.coeffs[i] * right.coeffs[j];
             }
         }
-        return new MyPolynomial(degrees);
+        return new MyPolynomial(newCoeffs);
 
     }
 }

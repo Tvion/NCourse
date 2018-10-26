@@ -36,7 +36,7 @@ public class MyComplex {
     @Override
     public String toString() {
         return "(" + real +
-                ((imag>=0)?"+":"") + imag +
+                ((imag >= 0) ? "+" : "") + imag +
                 "i)";
     }
 
@@ -88,24 +88,24 @@ public class MyComplex {
     }
 
     public MyComplex multiply(MyComplex right) {
-        double oldReal=this.real;
-        double oldImag=this.imag;
+        double oldReal = this.real;
+        double oldImag = this.imag;
         this.real = oldReal * right.getReal() - oldImag * right.getImag();
         this.imag = oldImag * right.getReal() + oldReal * right.getImag();
         return this;
     }
 
-    public MyComplex divide(MyComplex right){
-        double oldReal=this.real;
-        double oldImag=this.imag;
-        double denominator=Math.pow(right.getReal(),2)+Math.pow(right.getImag(),2);
-        this.real=(oldReal*right.getReal()+oldImag*right.getImag())/denominator;
-        this.imag=(oldImag*right.getReal()-oldReal*right.getImag())/denominator;
+    public MyComplex divide(MyComplex right) {
+        double oldReal = this.real;
+        double oldImag = this.imag;
+        double denominator = Math.pow(right.getReal(), 2) + Math.pow(right.getImag(), 2);
+        this.real = (oldReal * right.getReal() + oldImag * right.getImag()) / denominator;
+        this.imag = (oldImag * right.getReal() - oldReal * right.getImag()) / denominator;
         return this;
     }
 
-    public MyComplex conjugate(){
-        return new MyComplex(this.real,this.imag*(-1));
+    public MyComplex conjugate() {
+        return new MyComplex(this.real, this.imag * (-1));
     }
 
 

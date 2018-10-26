@@ -2,15 +2,15 @@ package com.tvion.first;
 
 public class Rectangle {
 
-    private float length=1.0f;
-    private float width=1.0f;
+    private float length = 1.0f;
+    private float width = 1.0f;
 
-    public Rectangle(){
+    public Rectangle() {
     }
 
-    public Rectangle(float length,float width){
-        this.length=length;
-        this.width=width;
+    public Rectangle(float length, float width) {
+        this.length = length;
+        this.width = width;
     }
 
     public float getLength() {
@@ -29,16 +29,16 @@ public class Rectangle {
         this.width = width;
     }
 
-    public double getArea(){
-        return width*length;
+    public double getArea() {
+        return width * length;
     }
 
-    public double getPerimeter(){
-        return 2*(width+length);
+    public double getPerimeter() {
+        return 2 * (width + length);
     }
 
     @Override
     public String toString() {
-        return "Rectangle[length="+length+",width="+width;
+        return "Rectangle[length=" + length + ",width=" + width;
     }
 }

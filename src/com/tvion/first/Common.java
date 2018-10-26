@@ -12,13 +12,13 @@ public class Common {
 
 
         System.out.println("*****Circle*****");
-        Circle circle=new Circle(30);
-        System.out.printf("%.2f",circle.getArea());
+        Circle circle = new Circle(30);
+        System.out.printf("%.2f", circle.getArea());
         System.out.println();
 
 
         System.out.println("*****Employee*****");
-        Employee employee=new Employee(1,"s","d",100000);
+        Employee employee = new Employee(1, "s", "d", 100000);
         System.out.println(employee.getSalary());
         System.out.println(employee.raiseSalary(10));
         System.out.println(employee);
@@ -26,21 +26,21 @@ public class Common {
 
 
         System.out.println("*****MyPoint*****");
-        MyPoint first = new MyPoint(5,2);
-        MyPoint third = new MyPoint(3,10);
-        System.out.printf("%4.2f\n",first.distance(third));
-        System.out.printf("%4.2f\n",first.distance());
-        System.out.printf("%4.2f\n",first.distance(10,40));
+        MyPoint first = new MyPoint(5, 2);
+        MyPoint third = new MyPoint(3, 10);
+        System.out.printf("%4.2f\n", first.distance(third));
+        System.out.printf("%4.2f\n", first.distance());
+        System.out.printf("%4.2f\n", first.distance(10, 40));
         System.out.println();
 
         System.out.println("*****MyTriangle*****");
-        MyTriangle triangle=new MyTriangle(0,0,1,1,2,0);
+        MyTriangle triangle = new MyTriangle(0, 0, 1, 1, 2, 0);
         System.out.println(triangle.getType());
         System.out.println(triangle.getPerimeter());
         System.out.println();
 
         System.out.println("*****MyRectangle*****");
-        Rectangle rectangle=new Rectangle(10,30);
+        Rectangle rectangle = new Rectangle(10, 30);
         System.out.println(rectangle.getPerimeter());
 
     }

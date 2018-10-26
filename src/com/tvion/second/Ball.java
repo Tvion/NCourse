@@ -7,12 +7,12 @@ public class Ball {
     private float xDelta;
     private float yDelta;
 
-    public Ball(float x, float y, int radius,int speed,int direction) {
+    public Ball(float x, float y, int radius, int speed, int direction) {
         this.x = x;
         this.y = y;
         this.radius = radius;
-        this.xDelta=speed*(float)Math.cos(direction);
-        this.yDelta=-1*speed*(float)Math.sin(direction);
+        this.xDelta = speed * (float) Math.cos(direction);
+        this.yDelta = -1 * speed * (float) Math.sin(direction);
     }
 
     public float getX() {
@@ -55,21 +55,21 @@ public class Ball {
         this.yDelta = yDelta;
     }
 
-    public void move(){
-        x+=xDelta;
-        y+=yDelta;
+    public void move() {
+        x += xDelta;
+        y += yDelta;
     }
 
-    public void reflectHorizontal(){
-        xDelta*=-1.0f;
+    public void reflectHorizontal() {
+        xDelta *= -1.0f;
     }
 
-    public void reflectVertical(){
-        yDelta*=-1.0f;
+    public void reflectVertical() {
+        yDelta *= -1.0f;
     }
 
     @Override
     public String toString() {
-        return "Ball[("+x+","+y+"),speed=("+xDelta+","+yDelta+")]";
+        return "Ball[(" + x + "," + y + "),speed=(" + xDelta + "," + yDelta + ")]";
     }
 }

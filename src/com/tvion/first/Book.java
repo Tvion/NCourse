@@ -11,9 +11,9 @@ public class Book {
     private int qty = 0;
 
     private Author[] calcArray(Author[] sourceArray) {
-        ArrayList<Author> authors= new ArrayList<>();
-        for(int i=0;i<m;i++){
-            if(sourceArray[i]!=null)authors.add(sourceArray[i]);
+        ArrayList<Author> authors = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            if (sourceArray[i] != null) authors.add(sourceArray[i]);
         }
         return authors.toArray(new Author[authors.size()]);
 
