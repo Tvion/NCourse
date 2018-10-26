@@ -61,11 +61,5 @@ public class Book {
         return "Book[name=" + name + ",authors=" + Arrays.toString(authors) + ",price=" + price + ",qty=" + qty + "]";
     }
 
-    public static void main(String[] args) {
-        Author[] authors = new Author[5];
-        authors[0] = new Author("Sasha", "snak", 'm');
-        authors[1] = new Author("Sasham", "sdf", 'f');
-        Book book = new Book("nazv", authors, 10);
-        System.out.println(book);
-    }
+
 }

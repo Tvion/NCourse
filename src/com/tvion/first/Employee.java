@@ -52,10 +52,4 @@ public class Employee {
         return "Employee[id="+id+",name="+firstName+" "+lastName+",salary="+salary+"]";
     }
 
-    public static void main(String[] args) {
-    Employee employee=new Employee(1,"s","d",100000);
-        System.out.println(employee.getSalary());
-        System.out.println(employee.raiseSalary(10));
-        System.out.println(employee.toString());
-    }
 }

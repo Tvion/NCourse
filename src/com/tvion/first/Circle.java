@@ -44,8 +44,4 @@ public class Circle {
     }
 
 
-    public static void main(String[] args) {
-        Circle circle=new Circle(30);
-        System.out.printf("%.2f",circle.getArea());
-    }
 }

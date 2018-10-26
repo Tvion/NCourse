@@ -109,13 +109,4 @@ public class MyComplex {
     }
 
 
-    public static void main(String[] args) {
-        MyComplex myComplex=new MyComplex(2,2);
-        MyComplex myComplex1=new MyComplex(10,3);
-        System.out.println(myComplex);
-        myComplex.multiply(myComplex1);
-        System.out.println(myComplex);
-        myComplex.add(myComplex1);
-        System.out.println(myComplex.conjugate());
-    }
 }

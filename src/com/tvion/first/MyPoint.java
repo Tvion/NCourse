@@ -54,12 +54,4 @@ public class MyPoint {
         return distance(0,0);
     }
 
-    public static void main(String[] args) {
-        MyPoint first = new MyPoint(5,2);
-        MyPoint third = new MyPoint(3,10);
-        System.out.printf("%4.2f\n",first.distance(third));
-        System.out.printf("%4.2f\n",third.distance(first));
-        System.out.printf("%4.2f\n",first.distance());
-        System.out.printf("%4.2f\n",first.distance(10,40));
-    }
 }

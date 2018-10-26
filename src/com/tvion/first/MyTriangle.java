@@ -38,10 +38,4 @@ public class MyTriangle {
         if (firstSide == secondSide || firstSide==thirdSide || secondSide==thirdSide) return "Isosceles";
         return "Scalene";
     }
-
-    public static void main(String[] args) {
-        MyTriangle triangle=new MyTriangle(0,0,1,1,2,0);
-        System.out.println(triangle.getType());
-        System.out.println(triangle.getPerimeter());
-    }
 }

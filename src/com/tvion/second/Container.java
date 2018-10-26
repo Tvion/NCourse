@@ -29,6 +29,7 @@ public class Container {
         return y2-y1;
     }
 
+    //При пересечение границы какой-либо частью мяча возвращает false
     public boolean collides(Ball ball){
         int radius=ball.getRadius();
     if((ball.getX()-radius<x1) || (ball.getX()+radius>x2)) return false;

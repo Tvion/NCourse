@@ -62,16 +62,4 @@ public class MyPolynomial {
         return new MyPolynomial(degrees);
 
     }
-
-    public static void main(String[] args) {
-        MyPolynomial polina = new MyPolynomial(new double[]{2, 4, 6, 3, 2, 6, 8, 6});
-        MyPolynomial polinochka = new MyPolynomial(new double[]{2, 2, 7, 9, 6, 4, 3, 2, 9});
-        MyPolynomial polinochka2 = new MyPolynomial(new double[]{1, 2, 3});
-        MyPolynomial polinochka3 = new MyPolynomial(new double[]{2, 3, 1});
-        System.out.println(polina);
-        System.out.println(polinochka2);
-        System.out.println(polinochka3);
-        System.out.println(polinochka2.multiply(polinochka3));
-        System.out.println(polinochka3.multiply(polinochka2));
-    }
 }
