@@ -5,7 +5,7 @@ public class Common {
         System.out.println("*****Book*****");
         Author[] authors = new Author[5];
         authors[0] = new Author("Sasha", "snak", 'm');
-        authors[1] = new Author("Sasham", "sdf", 'f');
+        authors[1] = new Author("Masha", "sdf", 'f');
         Book book = new Book("nazv", authors, 10);
         System.out.println(book);
         System.out.println();
