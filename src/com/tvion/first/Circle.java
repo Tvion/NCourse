@@ -43,5 +43,22 @@ public class Circle {
         return Math.PI * Math.pow(radius, 2);
     }
 
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof Circle)) return false;
+        Circle other = (Circle) otherObject;
+        return radius == other.radius && color.equals(other.color);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 23;
+        Long radiusLong = Double.doubleToLongBits(radius);
+        result = 31 * result + (int) (radiusLong ^ (radiusLong >>> 32));
+        result = 31 * result + color.hashCode();
+        return result;
+    }
 
 }

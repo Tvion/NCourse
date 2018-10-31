@@ -1,5 +1,7 @@
 package com.tvion.second;
 
+import java.util.Arrays;
+
 public class MyPolynomial {
     private double[] coeffs;
 
@@ -61,5 +63,26 @@ public class MyPolynomial {
         }
         return new MyPolynomial(newCoeffs);
 
+    }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof MyPolynomial)) return false;
+        MyPolynomial other = (MyPolynomial) otherObject;
+        if (this.getDegree() != other.getDegree()) return false;
+        double[] sortCoeffs = coeffs.clone();
+        double[] otherSortCoeffs = other.coeffs.clone();
+        Arrays.sort(sortCoeffs);
+        Arrays.sort(otherSortCoeffs);
+        return Arrays.equals(sortCoeffs, otherSortCoeffs);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 23;
+        result = 31 * result + Arrays.hashCode(coeffs);
+        return result;
     }
 }

@@ -41,4 +41,21 @@ public class Rectangle {
     public String toString() {
         return "Rectangle[length=" + length + ",width=" + width;
     }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof Rectangle)) return false;
+        Rectangle other = (Rectangle) otherObject;
+        return width == other.width && length == other.length;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 23;
+        result = 31 * result + Float.floatToIntBits(width);
+        result = 31 * result + Float.floatToIntBits(length);
+        return result;
+    }
 }

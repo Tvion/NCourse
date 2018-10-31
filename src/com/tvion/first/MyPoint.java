@@ -1,18 +1,18 @@
 package com.tvion.first;
 
 public class MyPoint {
-    private int x = 0;
-    private int y = 0;
+    private double x = 0;
+    private double y = 0;
 
     public MyPoint() {
     }
 
-    public MyPoint(int x, int y) {
+    public MyPoint(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -20,7 +20,7 @@ public class MyPoint {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -28,8 +28,8 @@ public class MyPoint {
         this.y = y;
     }
 
-    public int[] getXY() {
-        return new int[]{x, y};
+    public double[] getXY() {
+        return new double[]{x, y};
     }
 
     public void setXY(int x, int y) {
@@ -42,7 +42,7 @@ public class MyPoint {
         return "(" + x + "," + y + ")";
     }
 
-    public double distance(int x, int y) {
+    public double distance(double x, double y) {
         return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
     }
 
@@ -53,5 +53,25 @@ public class MyPoint {
     public double distance() {
         return distance(0, 0);
     }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof MyPoint)) return false;
+        MyPoint other = (MyPoint) otherObject;
+        return x == other.x && y == other.y;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 23;
+        Long xLong = Double.doubleToLongBits(x);
+        Long yLong = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (xLong ^ (xLong >>> 32));
+        result = 31 * result + (int) (yLong ^ (yLong >>> 32));
+        return result;
+    }
+
 
 }

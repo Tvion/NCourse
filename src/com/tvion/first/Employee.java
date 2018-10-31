@@ -52,4 +52,26 @@ public class Employee {
         return "Employee[id=" + id + ",name=" + firstName + " " + lastName + ",salary=" + salary + "]";
     }
 
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof Employee)) return false;
+        Employee other = (Employee) otherObject;
+        return id == other.id
+                && firstName.equals(other.firstName)
+                && lastName.equals(other.lastName)
+                && salary == other.salary;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 23;
+        result = 31 * result + id;
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + salary;
+        return result;
+    }
+
 }

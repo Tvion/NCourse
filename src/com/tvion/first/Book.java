@@ -2,6 +2,7 @@ package com.tvion.first;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Book {
     private static final int m = 3;
@@ -10,12 +11,16 @@ public class Book {
     private double price;
     private int qty = 0;
 
+    // проверка null в переданном масиве авторов, соблюдение ограничения m связей
     private Author[] calcArray(Author[] sourceArray) {
         ArrayList<Author> authors = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < sourceArray.length; i++) {
+            if (authors.size() >= m) break;
             if (sourceArray[i] != null) authors.add(sourceArray[i]);
         }
-        return authors.toArray(new Author[authors.size()]);
+        Author[] result = authors.toArray(new Author[authors.size()]);
+        Arrays.sort(result, Comparator.comparing(Author::getName).thenComparing(Author::getGender).thenComparing(Author::getEmail));
+        return result;
 
     }
 
@@ -61,5 +66,39 @@ public class Book {
         return "Book[name=" + name + ",authors=" + Arrays.toString(authors) + ",price=" + price + ",qty=" + qty + "]";
     }
 
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof Book)) return false;
+        Book other = (Book) otherObject;
+        return name.equals(other.name) && price == other.price && qty == other.qty && Arrays.equals(authors, other.authors);
+    }
+
+    /*    @Override
+        public int hashCode(){
+            int result=23;
+            result=31*result+name.hashCode();
+            result=31*result+qty;
+            int authorResult=0;
+            for(Author au: authors){
+                authorResult+=au.hashCode();
+            }
+            result=31*result+authorResult;
+            long priceLong=Double.doubleToLongBits(price);
+            result=31*result+(int)(priceLong^(priceLong>>>32));
+            return result;
+        }*/
+    @Override
+    public int hashCode() {
+        int result = 23;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + qty;
+        result = 31 * result + Arrays.hashCode(authors);
+        long priceLong = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (priceLong ^ (priceLong >>> 32));
+        return result;
+    }
 
 }

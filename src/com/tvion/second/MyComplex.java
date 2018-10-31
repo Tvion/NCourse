@@ -108,5 +108,22 @@ public class MyComplex {
         return new MyComplex(this.real, this.imag * (-1));
     }
 
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof MyComplex)) return false;
+        MyComplex other = (MyComplex) otherObject;
+        return real == other.real && imag == other.imag;
+    }
 
+    @Override
+    public int hashCode() {
+        int result = 23;
+        Long realLong = Double.doubleToLongBits(real);
+        Long imagLong = Double.doubleToLongBits(imag);
+        result = 31 * result + (int) (realLong ^ (realLong >>> 32));
+        result = 31 * result + (int) (imagLong ^ (imagLong >>> 32));
+        return result;
+    }
 }

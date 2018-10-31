@@ -41,4 +41,23 @@ public class Container {
     public String toString() {
         return "Container[(" + x1 + "," + y1 + "),(" + x2 + "," + y2 + ")]";
     }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) return true;
+        if (otherObject == null) return false;
+        if (!(otherObject instanceof Container)) return false;
+        Container other = (Container) otherObject;
+        return this.getHeight() == other.getHeight() && this.getWidth() == other.getWidth();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 23;
+        result = 31 * result + getWidth();
+        result = 31 * result + getHeight();
+        return result;
+    }
+
 }
+

@@ -33,10 +33,14 @@ public class BallTest {
         System.out.println("*****MyPolinomial*****");
         MyPolynomial polina = new MyPolynomial(new double[]{1, 2, 3, 4});
         MyPolynomial polinochka = new MyPolynomial(new double[]{2, 3, 1});
+        MyPolynomial polinochka1 = new MyPolynomial(new double[]{2, 3, 1});
+        System.out.println(polina);
+        System.out.println(polinochka.equals(polinochka1));
         System.out.println(polina);
         System.out.println(polinochka);
         System.out.println(polina.add(polinochka));
         System.out.println(polinochka.multiply(polina));
     }
+
 
 }
