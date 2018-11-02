@@ -66,8 +66,8 @@ public class MyPoint {
     @Override
     public int hashCode() {
         int result = 23;
-        Long xLong = Double.doubleToLongBits(x);
-        Long yLong = Double.doubleToLongBits(y);
+        long xLong = Double.doubleToLongBits(x);
+        long yLong = Double.doubleToLongBits(y);
         result = 31 * result + (int) (xLong ^ (xLong >>> 32));
         result = 31 * result + (int) (yLong ^ (yLong >>> 32));
         return result;

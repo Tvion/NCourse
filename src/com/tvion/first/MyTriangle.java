@@ -41,23 +41,21 @@ public class MyTriangle {
         return "Scalene";
     }
 
+    // Производит сравнение сторон
     private boolean compareTriangles(MyTriangle other) {
         double[] firstTriangleSides = this.getSides();
         double[] secondTriangleSides = other.getSides();
         Arrays.sort(firstTriangleSides);
         Arrays.sort(secondTriangleSides);
         return Arrays.equals(firstTriangleSides, secondTriangleSides);
-
-
     }
 
     // Возвращает массив длин сторон
-
     public double[] getSides() {
         double[] triangleSides = new double[3];
-        triangleSides[0] = v1.distance(v2);
-        triangleSides[1] = v2.distance(v3);
-        triangleSides[2] = v3.distance(v1);
+        triangleSides[0] = Math.round(v1.distance(v2) * 100.0) / 100.0;
+        triangleSides[1] = Math.round(v2.distance(v3) * 100.0) / 100.0;
+        triangleSides[2] = Math.round(v3.distance(v1) * 100.0) / 100.0;
         return triangleSides;
     }
 
@@ -67,7 +65,6 @@ public class MyTriangle {
         if (otherObject == null) return false;
         if (!(otherObject instanceof MyTriangle)) return false;
         MyTriangle other = (MyTriangle) otherObject;
-        if (!this.getType().equals(other.getType())) return false;
         return compareTriangles(other);
     }
 
@@ -77,7 +74,7 @@ public class MyTriangle {
         int result = 23;
         double[] sides = this.getSides();
         Arrays.sort(sides);
-        result = 31 * Arrays.hashCode(sides);
+        result = 31*result + Arrays.hashCode(sides);
         return result;
     }
 }

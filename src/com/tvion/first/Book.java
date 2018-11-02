@@ -11,12 +11,12 @@ public class Book {
     private double price;
     private int qty = 0;
 
-    // проверка null в переданном масиве авторов, соблюдение ограничения m связей
+    // проверка null в переданном масиве авторов, соблюдение ограничения m связей, сортировка авторов
     private Author[] calcArray(Author[] sourceArray) {
         ArrayList<Author> authors = new ArrayList<>();
-        for (int i = 0; i < sourceArray.length; i++) {
+        for (Author aSourceArray : sourceArray) {
             if (authors.size() >= m) break;
-            if (sourceArray[i] != null) authors.add(sourceArray[i]);
+            if (aSourceArray != null) authors.add(aSourceArray);
         }
         Author[] result = authors.toArray(new Author[authors.size()]);
         Arrays.sort(result, Comparator.comparing(Author::getName).thenComparing(Author::getGender).thenComparing(Author::getEmail));
@@ -76,20 +76,7 @@ public class Book {
         return name.equals(other.name) && price == other.price && qty == other.qty && Arrays.equals(authors, other.authors);
     }
 
-    /*    @Override
-        public int hashCode(){
-            int result=23;
-            result=31*result+name.hashCode();
-            result=31*result+qty;
-            int authorResult=0;
-            for(Author au: authors){
-                authorResult+=au.hashCode();
-            }
-            result=31*result+authorResult;
-            long priceLong=Double.doubleToLongBits(price);
-            result=31*result+(int)(priceLong^(priceLong>>>32));
-            return result;
-        }*/
+
     @Override
     public int hashCode() {
         int result = 23;

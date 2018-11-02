@@ -41,18 +41,15 @@ public class MyComplex {
     }
 
     public boolean isReal() {
-        if (real != 0.0) return true;
-        return false;
+        return real != 0.0;
     }
 
     public boolean isImaginary() {
-        if (imag != 0.0) return true;
-        return false;
+        return imag != 0.0;
     }
 
     public boolean equals(double real, double imag) {
-        if (this.real == real && this.imag == imag) return true;
-        return false;
+        return this.real == real && this.imag == imag;
     }
 
     public boolean equals(MyComplex another) {
@@ -120,8 +117,8 @@ public class MyComplex {
     @Override
     public int hashCode() {
         int result = 23;
-        Long realLong = Double.doubleToLongBits(real);
-        Long imagLong = Double.doubleToLongBits(imag);
+        long realLong = Double.doubleToLongBits(real);
+        long imagLong = Double.doubleToLongBits(imag);
         result = 31 * result + (int) (realLong ^ (realLong >>> 32));
         result = 31 * result + (int) (imagLong ^ (imagLong >>> 32));
         return result;

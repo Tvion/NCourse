@@ -55,7 +55,7 @@ public class Circle {
     @Override
     public int hashCode() {
         int result = 23;
-        Long radiusLong = Double.doubleToLongBits(radius);
+        long radiusLong = Double.doubleToLongBits(radius);
         result = 31 * result + (int) (radiusLong ^ (radiusLong >>> 32));
         result = 31 * result + color.hashCode();
         return result;
