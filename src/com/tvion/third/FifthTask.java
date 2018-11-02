@@ -47,7 +47,7 @@ public class FifthTask {
         }
         showArray(secondArray);
         System.out.println("Max element = "+max);
-        System.out.println("Max element's row index is " + maxIndex[0] + " and col index is " + maxIndex[1]);
+        System.out.println("Max element's row index = " + maxIndex[0] + " and col index is " + maxIndex[1]);
         System.out.println();
 
 
