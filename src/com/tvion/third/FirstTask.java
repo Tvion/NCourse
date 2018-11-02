@@ -58,6 +58,7 @@ public class FirstTask {
         return intArray;
     }
 
+    // Библиотечная QuickSort
     public static int[] libSort(int[] sourceArray) {
         int[] intArray = sourceArray.clone();
         long startTime = System.nanoTime();
