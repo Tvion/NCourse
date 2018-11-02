@@ -4,7 +4,13 @@ package com.tvion.third;
 import java.util.Arrays;
 
 public class Common {
+
+    //Разобран на разные классы
+
+
+    /*
     public static void main(String[] args) {
+        System.out.println("***************Sorts***************");
         int[] ints = new int[100];
         for (int i = 0; i < ints.length; i++) {
             ints[i] = (int) (Math.random() * 1000);
@@ -14,20 +20,26 @@ public class Common {
         selectSort(ints);
         libSort(ints);
 
-        System.out.println("***************Second***************");
+
+        System.out.println("***************Factorials***************");
 
         long startTime;
         long estimatedTime;
+        int factorial1;
+        int factorial2;
         startTime = System.nanoTime();
-        int factorial1 = factCycle(1000);
+        factorial1 = factCycle(1000);
         estimatedTime = System.nanoTime() - startTime;
+        System.out.println("Factorial 1000 = "+factorial1);
         System.out.println("Factorial was calculated by cycle in " + estimatedTime);
+
         startTime = System.nanoTime();
-        int factorial2 = factRecursive(1000);
+        factorial2 = factRecursive(1000);
         estimatedTime = System.nanoTime() - startTime;
+        System.out.println("Factorial 1000 = "+factorial2);
         System.out.println("Factorial was calculated by recursion in " + estimatedTime);
 
-        System.out.println("***************Third***************");
+        System.out.println("***************Figures***************");
 
         int size = 8;
         MyArrays array1 = new MyArrays(size);
@@ -37,7 +49,7 @@ public class Common {
         array1.thirdArrayFigure();
         array1.forthArrayFigure();
 
-        System.out.println("***************Forth***************");
+        System.out.println("***************Arrays***************");
 
         int[] nech = new int[50];
         int firstNumb = 1;
@@ -239,5 +251,5 @@ public class Common {
         return n * factRecursive(n - 1);
     }
 
-
+*/
 }

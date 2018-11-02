@@ -1,6 +1,20 @@
 package com.tvion.third;
 
 public class MyArrays {
+
+    //Клас перенесен в SecondTask
+
+/*
+    public static void main(String[] args) {
+        int size = 8;
+        MyArrays array1 = new MyArrays(size);
+        array1.showArray();
+        array1.firstArrayFigure();
+        array1.secondArrayFigure();
+        array1.thirdArrayFigure();
+        array1.forthArrayFigure();
+    }
+
     private String[][] incArray;
 
     public MyArrays(int size) {
@@ -8,10 +22,10 @@ public class MyArrays {
         initArray(size, size);
     }
 
-/*    public MyArrays(int rows, int cols) {
+   public MyArrays(int rows, int cols) {
         this.incArray = new String[rows][cols];
         initArray(rows, cols);
-    }*/
+    }
 
     private void initArray(int rows, int cols) {
         for (int row = 0; row < rows; row++) {
@@ -58,7 +72,7 @@ public class MyArrays {
         String[][] newIncArray = incArray.clone();
         for (int i = 0; i < newIncArray.length; i++) {
             for (int j = 0; j < newIncArray[i].length; j++) {
-                if (i != 0 && i != (newIncArray.length-1) && j != (newIncArray[i].length-1) && j != 0 && i != j && i != (newIncArray[i].length-j-1))
+                if (i != 0 && i != (newIncArray.length - 1) && j != (newIncArray[i].length - 1) && j != 0 && i != j && i != (newIncArray[i].length - j - 1))
                     newIncArray[i][j] = " ";
                 else incArray[i][j] = "#";
             }
@@ -70,7 +84,7 @@ public class MyArrays {
         String[][] newIncArray = incArray.clone();
         for (int i = 0; i < newIncArray.length; i++) {
             for (int j = 0; j < newIncArray[i].length; j++) {
-                if (i != 0 && i != (newIncArray.length-1) && i!=j)
+                if (i != 0 && i != (newIncArray.length - 1) && i != j)
                     newIncArray[i][j] = " ";
                 else incArray[i][j] = "#";
             }
@@ -82,11 +96,12 @@ public class MyArrays {
         String[][] newIncArray = incArray.clone();
         for (int i = 0; i < newIncArray.length; i++) {
             for (int j = 0; j < newIncArray[i].length; j++) {
-                if (i != 0 && i != (newIncArray.length-1) && i!=newIncArray.length-1-j)
+                if (i != 0 && i != (newIncArray.length - 1) && i != newIncArray.length - 1 - j)
                     newIncArray[i][j] = " ";
                 else incArray[i][j] = "#";
             }
         }
         showArray(newIncArray);
     }
+    */
 }
