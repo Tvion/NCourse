@@ -70,7 +70,6 @@ public class Book {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof Book)) return false;
         Book other = (Book) otherObject;
         return name.equals(other.name) && price == other.price && qty == other.qty && Arrays.equals(authors, other.authors);

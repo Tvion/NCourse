@@ -45,7 +45,6 @@ public class Container {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof Container)) return false;
         Container other = (Container) otherObject;
         return this.getHeight() == other.getHeight() && this.getWidth() == other.getWidth();

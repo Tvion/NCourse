@@ -57,7 +57,6 @@ public class MyPoint {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof MyPoint)) return false;
         MyPoint other = (MyPoint) otherObject;
         return x == other.x && y == other.y;

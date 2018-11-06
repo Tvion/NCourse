@@ -62,7 +62,6 @@ public class MyTriangle {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof MyTriangle)) return false;
         MyTriangle other = (MyTriangle) otherObject;
         return compareTriangles(other);

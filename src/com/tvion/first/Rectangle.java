@@ -45,7 +45,6 @@ public class Rectangle {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof Rectangle)) return false;
         Rectangle other = (Rectangle) otherObject;
         return width == other.width && length == other.length;

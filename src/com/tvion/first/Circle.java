@@ -46,7 +46,6 @@ public class Circle {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof Circle)) return false;
         Circle other = (Circle) otherObject;
         return radius == other.radius && color.equals(other.color);

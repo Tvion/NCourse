@@ -76,7 +76,6 @@ public class Ball {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof Ball)) return false;
         Ball other = (Ball) otherObject;
         return radius == other.radius;

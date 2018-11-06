@@ -68,7 +68,6 @@ public class MyPolynomial {
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
-        if (otherObject == null) return false;
         if (!(otherObject instanceof MyPolynomial)) return false;
         MyPolynomial other = (MyPolynomial) otherObject;
         if (this.getDegree() != other.getDegree()) return false;
