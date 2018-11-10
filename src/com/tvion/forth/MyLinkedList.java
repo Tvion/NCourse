@@ -38,12 +38,11 @@ public class MyLinkedList<E> implements ILinkedList<E> {
             add(element);
             return;
         }
-        if (index < size) {
+        if (index < size || index > 0) {
             nextNode = getNode(index);
-            nextNode.setPrev(newNode);
-        }
-        if (index > 0) {
             prevNode = getNode(index - 1);
+            nextNode.setPrev(newNode);
+            //Если поместить вот сюда prevNode = getNode(index - 1); , то можно провести много времени в раздумиях над забавной ошибкой с:
             prevNode.setNext(newNode);
         }
         newNode.setNext(nextNode);
@@ -78,14 +77,37 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E remove(int index) {
-        E removed = get(index);
+        if(index==0){
+            E backValue=first.getDatum();
+            first=first.getNext();
+            size--;
+            return backValue;
+        }
+        if(index==size-1){
+            E backValue=first.getDatum();
+            last=last.getPrev();
+            size--;
+            return backValue;
+        }
         Node<E> prev = getNode(index - 1);
-        Node<E> next = getNode(index + 1);
+        E removed=prev.getNext().getDatum();
+        Node<E> next = prev.getNext().getNext();
         prev.setNext(next);
         next.setPrev(prev);
         size--;
         return removed;
     }
+
+/*    @Override
+    public E remove(int index) {
+        Node<E> prev = getNode(index - 1);
+        E removed = prev.getNext().getDatum();
+        Node<E> next = prev.getNext();
+        prev.setNext(next);
+        next.setPrev(prev);
+        size--;
+        return removed;
+    }*/
 
     @Override
     public E set(int index, E element) {
@@ -100,7 +122,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return size;
     }
 
-    @Override
+
     @SuppressWarnings("uncheked")
     public E[] toArray() {
         if(size==0) return null;
@@ -112,13 +134,14 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return ar;
     }
 
+
     @Override
     public String toString() {
         return Arrays.toString(this.toArray());
     }
 
-
-    private Node<E> getNode(int index) {
+//Первая версия
+/*    private Node<E> getNode(int index) {
         if (index >= size || index < 0) throw new IndexOutOfBoundsException();
         MyIter iter = (MyIter) this.iterator();
         for (int i = 0; i <= index; i++) {
@@ -127,6 +150,24 @@ public class MyLinkedList<E> implements ILinkedList<E> {
             }
         }
         return iter.getLastReturned();
+    }*/
+
+//Вторая версия( когда глянул LinkedList)
+    private Node<E> getNode(int index) {
+        if (index >= size || index < 0) throw new IndexOutOfBoundsException();
+        if(index<size/2) {
+            Node<E> targetNode=first;
+            for (int i = 0; i < index; i++) {
+                targetNode = targetNode.getNext();
+            }
+            return targetNode;
+        } else {
+            Node<E> targetNode=last;
+            for (int i = size-1; i > index; i--) {
+                targetNode = targetNode.getPrev();
+            }
+            return targetNode;
+        }
     }
 
 
