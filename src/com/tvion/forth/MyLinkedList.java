@@ -1,0 +1,165 @@
+package com.tvion.forth;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class MyLinkedList<E> implements ILinkedList<E> {
+    private int size;
+    private Node<E> first;
+    private Node<E> last;
+
+
+    @Override
+    public Iterator<E> iterator() {
+        return new MyIter();
+    }
+
+    @Override
+    public void add(E element) {
+        if (first == null) {
+            first = new Node<>(element, null, null);
+            last = first;
+        } else {
+            Node<E> RecNode = new Node<>(element, last, null);
+            last.setNext(RecNode);
+            last = RecNode;
+        }
+        size++;
+    }
+
+    @Override
+    public void add(int index, E element) {
+        Node<E> newNode = new Node<>(element, null, null);
+        Node<E> prevNode = null;
+        Node<E> nextNode = null;
+        if (index == size) {
+            add(element);
+            return;
+        }
+        if (index < size) {
+            nextNode = getNode(index);
+            nextNode.setPrev(newNode);
+        }
+        if (index > 0) {
+            prevNode = getNode(index - 1);
+            prevNode.setNext(newNode);
+        }
+        newNode.setNext(nextNode);
+        newNode.setPrev(prevNode);
+        if (index == 0) {
+            first = newNode;
+        }
+        size++;
+    }
+
+    @Override
+    public E get(int index) {
+        return getNode(index).getDatum();
+    }
+
+    @Override
+    public void clear() {
+        first = null;
+        last = null;
+        size=0;
+    }
+
+    @Override
+    public int indexOf(E element) {
+        int index = 0;
+        for (E nextElem : this) {
+            if (nextElem.equals(element)) return index;
+            index++;
+        }
+        return -1;
+    }
+
+    @Override
+    public E remove(int index) {
+        E removed = get(index);
+        Node<E> prev = getNode(index - 1);
+        Node<E> next = getNode(index + 1);
+        prev.setNext(next);
+        next.setPrev(prev);
+        size--;
+        return removed;
+    }
+
+    @Override
+    public E set(int index, E element) {
+        Node<E> modNode = getNode(index);
+        E modDatum = modNode.getDatum();
+        modNode.setDatum(element);
+        return modDatum;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    @SuppressWarnings("uncheked")
+    public E[] toArray() {
+        if(size==0) return null;
+        E[] ar = (E[]) Array.newInstance(first.getDatum().getClass(), size);
+        MyIter iter = (MyIter) iterator();
+        for (int i = 0; iter.hasNext(); i++) {
+            ar[i] = iter.next();
+        }
+        return ar;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(this.toArray());
+    }
+
+
+    private Node<E> getNode(int index) {
+        if (index >= size || index < 0) throw new IndexOutOfBoundsException();
+        MyIter iter = (MyIter) this.iterator();
+        for (int i = 0; i <= index; i++) {
+            if (iter.hasNext()) {
+                iter.next();
+            }
+        }
+        return iter.getLastReturned();
+    }
+
+
+    private class MyIter implements Iterator<E> {
+        private Node<E> lastReturned;
+        private Node<E> next;
+        private int nextIndex;
+
+        MyIter() {
+            next = first;
+            nextIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            lastReturned = next;
+            next = next.getNext();
+            nextIndex++;
+            return lastReturned.getDatum();
+        }
+
+        private Node<E> getLastReturned() {
+            return lastReturned;
+        }
+    }
+
+}
+
+
+
