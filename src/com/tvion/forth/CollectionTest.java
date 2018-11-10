@@ -50,7 +50,7 @@ public class CollectionTest {
         estimatedTime=System.nanoTime()-startTime;
         System.out.println("LinkedList add to index "+count+" elements time = "+ estimatedTime);
 
-
+//
 
         startTime=System.nanoTime();
         for(int i=0;i<count;i++){
