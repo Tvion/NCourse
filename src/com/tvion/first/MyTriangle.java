@@ -2,7 +2,7 @@ package com.tvion.first;
 
 import java.util.Arrays;
 
-public class MyTriangle {
+public class MyTriangle implements Comparable<MyTriangle> {
     private MyPoint v1;
     private MyPoint v2;
     private MyPoint v3;
@@ -75,5 +75,12 @@ public class MyTriangle {
         Arrays.sort(sides);
         result = 31*result + Arrays.hashCode(sides);
         return result;
+    }
+
+
+
+    @Override
+    public int compareTo(MyTriangle o) {
+        return (int)(this.getPerimeter()-o.getPerimeter());
     }
 }

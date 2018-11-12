@@ -1,5 +1,7 @@
 package com.tvion.forth;
 
+import com.tvion.first.MyTriangle;
+
 import java.util.*;
 
 public class CollectionTest {
@@ -7,22 +9,46 @@ public class CollectionTest {
         long startTime;
         long estimatedTime;
         int size = 100000;
-        List<Integer> arrayList = new ArrayList<>();
-        List<Integer> linkedList = new LinkedList<>();
-        Set<Integer> hashSet = new HashSet<>();
-        Set<Integer> linkedHashSet = new LinkedHashSet<>();
-        Set<Integer> treeSet = new TreeSet<>();
+        List<MyTriangle> arrayList = new ArrayList<>();
+        List<MyTriangle> linkedList = new LinkedList<>();
+        Set<MyTriangle> hashSet = new HashSet<>();
+        Set<MyTriangle> linkedHashSet = new LinkedHashSet<>();
+        Set<MyTriangle> treeSet = new TreeSet<>();
         for (int i = 0; i < size; i++) {
-            arrayList.add(i);
-            linkedList.add(i);
-            hashSet.add(i);
-            linkedHashSet.add(i);
-            treeSet.add(i);
+            //MyTriangle реализует интерфейс Comparable<MyTriangle>
+            MyTriangle mt = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, 5.0, 5.0);
+            arrayList.add(mt);
+            linkedList.add(mt);
+            hashSet.add(mt);
+            linkedHashSet.add(mt);
+            treeSet.add(mt);
         }
-        int count = 1000;
+//        Вывод сторон
+/*
+        for (MyTriangle t : hashSet) {
+            System.out.println(Arrays.toString(t.getSides()));
+        }
+        System.out.println();
+        System.out.println();
+        for (MyTriangle t : linkedHashSet) {
+            System.out.println(Arrays.toString(t.getSides()));
+        }
+        System.out.println();
+        System.out.println();
+        for (MyTriangle t : treeSet) {
+            System.out.println(Arrays.toString(t.getSides()));
+        }
+*/
+
+        int count = 10000;
+        MyTriangle[] mt= new MyTriangle[count];
+
+        for(int i=0;i<count;i++){
+            mt[i]=new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i+5.0, 5.0);
+        }
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
-            arrayList.add(i);
+            arrayList.add(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("ArrayList add " + count + " elements time is");
@@ -31,18 +57,19 @@ public class CollectionTest {
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
-            linkedList.add(i);
+            linkedList.add(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("LinkedList add " + count + " elements time is");
         System.out.println(estimatedTime);
 
+        System.out.println();
 
-        int position = 1000;
+        int position = 3;
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
-            arrayList.add(position, i);
+            arrayList.add(position, mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("ArrayList add to index " + position + " " + count + " elements time is");
@@ -51,13 +78,13 @@ public class CollectionTest {
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
-            linkedList.add(position, i);
+            linkedList.add(position, mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("LinkedList add to index " + position + " " + count + " elements time is");
         System.out.println(estimatedTime);
 
-
+        System.out.println();
 //
 
         startTime = System.nanoTime();
@@ -81,10 +108,15 @@ public class CollectionTest {
 
 
         ///////////////////////
-        int countForHash = 10000;
+        int countForHash = 100000;
+        mt= new MyTriangle[countForHash];
+
+        for(int i=0;i<countForHash;i++){
+            mt[i]=new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i+5.0, 5.0);
+        }
         startTime = System.nanoTime();
         for (int i = 0; i < countForHash; i++) {
-            hashSet.add(i);
+            hashSet.add(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("hashSet add " + countForHash + " elements time is");
@@ -93,7 +125,7 @@ public class CollectionTest {
 
         startTime = System.nanoTime();
         for (int i = 0; i < countForHash; i++) {
-            linkedHashSet.add(i);
+            linkedHashSet.add(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("linkedHashSet add " + countForHash + " elements time is");
@@ -102,7 +134,7 @@ public class CollectionTest {
 
         startTime = System.nanoTime();
         for (int i = 0; i < countForHash; i++) {
-            treeSet.add(i);
+            treeSet.add(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("treeSet add " + countForHash + " elements time is");
@@ -111,31 +143,38 @@ public class CollectionTest {
         System.out.println();
 
 
-        int positionForHash = 1000;
-        int searchedInt = 6000;
+//        int positionForHash = 20000;
+//        MyTriangle mt = new MyTriangle(0.0, 0.0, (double) 5, (Math.random() * 10 - 5) * 5, 5+5.0, 5.0);
         startTime = System.nanoTime();
-        hashSet.contains(searchedInt);
+        for (int i = 0; i < countForHash; i++) {
+            hashSet.contains(mt[i]);
+        }
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println("hashSet find " + searchedInt + " for time is");
+        System.out.println("hashSet find " + "mt" + " for time is");
         System.out.println(estimatedTime);
 
         startTime = System.nanoTime();
-        linkedHashSet.contains(searchedInt);
+        for (int i = 0; i < countForHash; i++) {
+            linkedHashSet.contains(mt[i]);
+        }
+
 
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println("linkedHashSet find " + searchedInt + " for time is");
+        System.out.println("linkedHashSet find " + "mt" + " for time is");
         System.out.println(estimatedTime);
 
         startTime = System.nanoTime();
-        treeSet.contains(searchedInt);
+        for (int i = 0; i < countForHash; i++) {
+            treeSet.contains(mt[i]);
+        }
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println("treeSet find " + searchedInt + " for time is");
+        System.out.println("treeSet find " + "mt" + " for time is");
         System.out.println(estimatedTime);
         System.out.println();
 
 
         for (int i = 0; i < countForHash; i++) {
-            hashSet.remove(i);
+            hashSet.remove(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("hashSet remove " + countForHash + " elements time is");
@@ -143,7 +182,7 @@ public class CollectionTest {
 
         startTime = System.nanoTime();
         for (int i = 0; i < countForHash; i++) {
-            linkedHashSet.remove(i);
+            linkedHashSet.remove(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("linkedHashSet remove " + countForHash + " elements time is");
@@ -152,7 +191,7 @@ public class CollectionTest {
 
         startTime = System.nanoTime();
         for (int i = 0; i < countForHash; i++) {
-            treeSet.remove(i);
+            treeSet.remove(mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("treeSet remove " + countForHash + " elements time is");
@@ -165,7 +204,7 @@ public class CollectionTest {
         int sizeForMap = 10000;
         int ran;
         for (int i = 0; i < sizeForMap; i++) {
-            ran= (int) (Math.random()*200);
+            ran = (int) (Math.random() * 200);
             hashMap.put(ran, Character.getName(ran));
             linkedHashMap.put(ran, Character.getName(ran));
             treeMap.put(ran, Character.getName(ran));
@@ -174,7 +213,7 @@ public class CollectionTest {
         int countForMap = 10000;
         startTime = System.nanoTime();
         for (int i = sizeForMap; i < sizeForMap + countForMap; i++) {
-            ran= (int) (Math.random()*2000);
+            ran = (int) (Math.random() * 2000);
             hashMap.put(ran, Character.getName(ran));
         }
         estimatedTime = System.nanoTime() - startTime;
@@ -182,7 +221,7 @@ public class CollectionTest {
         System.out.println(estimatedTime);
 //
         for (int i = sizeForMap; i < sizeForMap + countForMap; i++) {
-            ran= (int) (Math.random()*2000);
+            ran = (int) (Math.random() * 2000);
             linkedHashMap.put(ran, Character.getName(ran));
         }
         estimatedTime = System.nanoTime() - startTime;
@@ -191,7 +230,7 @@ public class CollectionTest {
 
 //
         for (int i = sizeForMap; i < sizeForMap + countForMap; i++) {
-            ran= (int) (Math.random()*2000);
+            ran = (int) (Math.random() * 2000);
             treeMap.put(ran, Character.getName(ran));
         }
         estimatedTime = System.nanoTime() - startTime;
