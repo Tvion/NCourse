@@ -262,7 +262,6 @@ public class CollectionTest {
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("TreeHashMap remove " + countForMap + " elements time is");
         System.out.println(estimatedTime);
-
     }
 
 

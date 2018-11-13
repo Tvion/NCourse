@@ -1,6 +1,7 @@
 package com.tvion.third;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class FifthTask {
     public static void main(String[] args) {
@@ -80,7 +81,7 @@ public class FifthTask {
         }
         showArray(forth);
         for (Integer[] aForth : forth) {
-            Arrays.sort(aForth, (a, b) -> b - a);
+            Arrays.sort(aForth, Comparator.comparingInt(Integer::intValue).reversed());
         }
         showArray(forth);
 

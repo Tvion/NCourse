@@ -42,7 +42,6 @@ public class MyLinkedList<E> implements ILinkedList<E> {
             nextNode = getNode(index);
             prevNode = getNode(index - 1);
             nextNode.setPrev(newNode);
-            //Если поместить вот сюда prevNode = getNode(index - 1); , то можно провести много времени в раздумиях над забавной ошибкой с:
             prevNode.setNext(newNode);
         }
         newNode.setNext(nextNode);
@@ -98,17 +97,6 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return removed;
     }
 
-/*    @Override
-    public E remove(int index) {
-        Node<E> prev = getNode(index - 1);
-        E removed = prev.getNext().getDatum();
-        Node<E> next = prev.getNext();
-        prev.setNext(next);
-        next.setPrev(prev);
-        size--;
-        return removed;
-    }*/
-
     @Override
     public E set(int index, E element) {
         Node<E> modNode = getNode(index);
@@ -134,25 +122,12 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return ar;
     }
 
-
     @Override
     public String toString() {
         return Arrays.toString(this.toArray());
     }
 
-//Первая версия
-/*    private Node<E> getNode(int index) {
-        if (index >= size || index < 0) throw new IndexOutOfBoundsException();
-        MyIter iter = (MyIter) this.iterator();
-        for (int i = 0; i <= index; i++) {
-            if (iter.hasNext()) {
-                iter.next();
-            }
-        }
-        return iter.getLastReturned();
-    }*/
 
-//Вторая версия( когда глянул LinkedList)
     private Node<E> getNode(int index) {
         if (index >= size || index < 0) throw new IndexOutOfBoundsException();
         if(index<size/2) {
