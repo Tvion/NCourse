@@ -114,12 +114,12 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     @SuppressWarnings("uncheked")
     public E[] toArray() {
         if(size==0) return null;
-        E[] ar = (E[]) Array.newInstance(first.getDatum().getClass(), size);
+        E[] resultArray = (E[]) Array.newInstance(first.getDatum().getClass(), size);
         MyIter iter = (MyIter) iterator();
         for (int i = 0; iter.hasNext(); i++) {
-            ar[i] = iter.next();
+            resultArray[i] = iter.next();
         }
-        return ar;
+        return resultArray;
     }
 
     @Override

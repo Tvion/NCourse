@@ -78,7 +78,7 @@ public class MyTriangle implements Comparable<MyTriangle> {
     }
 
 
-
+// Сравнение по периметру
     @Override
     public int compareTo(MyTriangle o) {
         return (int)(this.getPerimeter()-o.getPerimeter());
