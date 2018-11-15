@@ -61,7 +61,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     public void clear() {
         first = null;
         last = null;
-        size=0;
+        size = 0;
     }
 
     @Override
@@ -76,20 +76,20 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E remove(int index) {
-        if(index==0){
-            E backValue=first.getDatum();
-            first=first.getNext();
+        if (index == 0) {
+            E backValue = first.getDatum();
+            first = first.getNext();
             size--;
             return backValue;
         }
-        if(index==size-1){
-            E backValue=first.getDatum();
-            last=last.getPrev();
+        if (index == size - 1) {
+            E backValue = first.getDatum();
+            last = last.getPrev();
             size--;
             return backValue;
         }
         Node<E> prev = getNode(index - 1);
-        E removed=prev.getNext().getDatum();
+        E removed = prev.getNext().getDatum();
         Node<E> next = prev.getNext().getNext();
         prev.setNext(next);
         next.setPrev(prev);
@@ -113,13 +113,22 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @SuppressWarnings("uncheked")
     public E[] toArray() {
-        if(size==0) return null;
-        E[] resultArray = (E[]) Array.newInstance(first.getDatum().getClass(), size);
-        MyIter iter = (MyIter) iterator();
-        for (int i = 0; iter.hasNext(); i++) {
-            resultArray[i] = iter.next();
+        if (size == 0) return null;
+        Class classOfE = first.getDatum().getClass();
+        // Далее в цикле защита на случай, если первым элементов в коллекции будет подкласс E
+        while (true) {
+            try {
+                E[] resultArray = (E[]) Array.newInstance(classOfE, size);
+                MyIter iter = (MyIter) iterator();
+                for (int i = 0; iter.hasNext(); i++) {
+                    resultArray[i] = iter.next();
+                }
+                return resultArray;
+            } catch (ArrayStoreException ase) {
+                // Да, ловится unchecked exception, но мы же знаем чем она вызвана и как исправить)
+                classOfE = classOfE.getSuperclass();
+            }
         }
-        return resultArray;
     }
 
     @Override
@@ -130,15 +139,15 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     private Node<E> getNode(int index) {
         if (index >= size || index < 0) throw new IndexOutOfBoundsException();
-        if(index<size/2) {
-            Node<E> targetNode=first;
+        if (index < size / 2) {
+            Node<E> targetNode = first;
             for (int i = 0; i < index; i++) {
                 targetNode = targetNode.getNext();
             }
             return targetNode;
         } else {
-            Node<E> targetNode=last;
-            for (int i = size-1; i > index; i--) {
+            Node<E> targetNode = last;
+            for (int i = size - 1; i > index; i--) {
                 targetNode = targetNode.getPrev();
             }
             return targetNode;
