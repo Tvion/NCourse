@@ -79,30 +79,38 @@ public class MainClass {
     //Просто эксперимент
     public static void doForList(Object col, String operation, MyComplex... myComplexes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass = col.getClass();
-        Method method;
-        if ("add to index".equals(operation)) {
-            method = colClass.getMethod("add", int.class, Object.class);
-        } else {
-            method = colClass.getMethod(operation, int.class);
-        }
+        Method method = initMethod(colClass, operation);
         method.setAccessible(true);
         String[] name = colClass.getName().split("\\.");
-        if ("add to index".equals(operation)) {
-            startTime = System.nanoTime();
-            for (int i = 0; i < myComplexes.length; i++) {
-                method.invoke(col, ind, myComplexes[i]);
-            }
-            estimatedTime = System.nanoTime() - startTime;
-        } else {
-            startTime = System.nanoTime();
-            for (int i = 0; i < myComplexes.length; i++) {
-                method.invoke(col, ind);
-            }
-            estimatedTime = System.nanoTime() - startTime;
-        }
+        execMethod(col, method, operation, myComplexes);
         System.out.println(name[name.length - 1] + " " + operation + " " + myComplexes.length + " elements time is");
         System.out.println(estimatedTime);
-        System.out.println();
     }
 
+    public static Method initMethod(Class cl, String operation) throws NoSuchMethodException {
+        switch (operation) {
+            case "add to index":
+                return cl.getMethod("add", int.class, Object.class);
+            default:
+                return cl.getMethod(operation, int.class);
+        }
+    }
+
+    public static void execMethod(Object col, Method method, String operation, MyComplex... myComplexes) throws InvocationTargetException, IllegalAccessException {
+        switch (operation) {
+            case "add to index":
+                startTime = System.nanoTime();
+                for (int i = 0; i < myComplexes.length; i++) {
+                    method.invoke(col, ind, myComplexes[i]);
+                }
+                estimatedTime = System.nanoTime() - startTime;
+                break;
+            default:
+                startTime = System.nanoTime();
+                for (int i = 0; i < myComplexes.length; i++) {
+                    method.invoke(col, ind);
+                }
+                estimatedTime = System.nanoTime() - startTime;
+        }
+    }
 }
