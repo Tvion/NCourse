@@ -104,33 +104,15 @@ public class CollectionTest {
         System.out.println();
 
 
-        startTime = System.nanoTime();
-        for (int i = 0; i < count; i++) {
-            arrayList.add(position, mt[i]);
-        }
-        endOfOperation(arrayList, "add to index", countForList);
-
-        startTime = System.nanoTime();
-        for (int i = 0; i < count; i++) {
-            linkedList.add(position, mt[i]);
-        }
-        endOfOperation(linkedList, "add to index", countForList);
+        addToListByIndex(arrayList,position,mt);
+        addToListByIndex(linkedList,position,mt);
 
 
         System.out.println();
 
 
-        startTime = System.nanoTime();
-        for (int i = 0; i < count; i++) {
-            arrayList.remove(position);
-        }
-        endOfOperation(arrayList, "remove", countForList);
-
-        startTime = System.nanoTime();
-        for (int i = 0; i < count; i++) {
-            linkedList.remove(position);
-        }
-        endOfOperation(linkedList, "remove", countForList);
+        removeFromList(arrayList,mt);
+        removeFromList(linkedList,mt);
 
         System.out.println();
     }
@@ -146,7 +128,7 @@ public class CollectionTest {
         }
 //******************************************************************************************************************************************************
 
-        // Глеб, вопрос, можно ли писать подобные методы (ниже) для сокращения кода или это совсем костыль?
+        // Глеб, вопрос, можно ли писать подобные универсальные методы (ниже) или это совсем костыль?
 
         doForSet(hashSet, "add", mt);
         doForSet(linkedHashSet, "add", mt);
@@ -235,14 +217,6 @@ public class CollectionTest {
     }
 
 
-    public static void endOfOperation(Collection col, String operation, int count) {
-        estimatedTime = System.nanoTime() - startTime;
-        String[] name = col.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + " " + operation + " " + count + " elements time is");
-        System.out.println(estimatedTime);
-    }
-
-
 
     public static void addToList(List list, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
@@ -254,6 +228,28 @@ public class CollectionTest {
         System.out.println(name[name.length - 1] + " add" + myTriangles.length + " elements time is");
         System.out.println(estimatedTime);
 
+    }
+
+    public static void addToListByIndex(List list,int index, MyTriangle... myTriangles) {
+        startTime = System.nanoTime();
+        for (MyTriangle mt : myTriangles) {
+            list.add(index,mt);
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        String[] name = list.getClass().getName().split("\\.");
+        System.out.println(name[name.length - 1] + " add to index"+index+" " + myTriangles.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
+
+    public static void removeFromList(List list, MyTriangle... myTriangles) {
+        startTime = System.nanoTime();
+        for (MyTriangle mt : myTriangles) {
+            list.remove(mt);
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        String[] name = list.getClass().getName().split("\\.");
+        System.out.println(name[name.length - 1] + "remove " + myTriangles.length + " elements time is");
+        System.out.println(estimatedTime);
     }
 
 }
