@@ -97,32 +97,35 @@ public class CollectionTest {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
 
-        addToList(arrayList,mt);
-        addToList(linkedList,mt);
+        addToList(arrayList, mt);
+        addToList(linkedList, mt);
 
 
         System.out.println();
 
 
-        addToListByIndex(arrayList,position,mt);
-        addToListByIndex(linkedList,position,mt);
+        addToListByIndex(arrayList, position, mt);
+        addToListByIndex(linkedList, position, mt);
 
 
         System.out.println();
 
 
-        removeFromList(arrayList,mt);
-        removeFromList(linkedList,mt);
+        removeFromList(arrayList, position);
+        removeFromList(linkedList, position);
 
         System.out.println();
     }
 
     public static void compareSets(int countForSet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+
         System.out.println();
         System.out.println("*****COMPARE_SETS*****");
         System.out.println();
 
+        String[] operationsForSet = {"add", "contains", "remove"};
         MyTriangle[] mt = new MyTriangle[countForSet];
+
         for (int i = 0; i < countForSet; i++) {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
@@ -130,26 +133,16 @@ public class CollectionTest {
 
         // Глеб, вопрос, можно ли писать подобные универсальные методы (ниже) или это совсем костыль?
 
-        doForSet(hashSet, "add", mt);
-        doForSet(linkedHashSet, "add", mt);
-        doForSet(treeSet, "add", mt);
-
-        System.out.println();
-
-        doForSet(hashSet, "contains", mt);
-        doForSet(linkedHashSet, "contains", mt);
-        doForSet(treeSet, "contains", mt);
-
-        System.out.println();
-
-        doForSet(hashSet, "remove", mt);
-        doForSet(hashSet, "remove", mt);
-        doForSet(hashSet, "remove", mt);
+        for (String operation : operationsForSet) {
+            doForSet(hashSet, operation, mt);
+            doForSet(linkedHashSet, operation, mt);
+            doForSet(treeSet, operation, mt);
+            System.out.println();
+        }
 
         System.out.println();
     }
 
-//Вариант еще короче
 
     public static void compareMaps(int countForMap) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         System.out.println();
@@ -217,7 +210,6 @@ public class CollectionTest {
     }
 
 
-
     public static void addToList(List list, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
         for (MyTriangle mt : myTriangles) {
@@ -225,30 +217,30 @@ public class CollectionTest {
         }
         estimatedTime = System.nanoTime() - startTime;
         String[] name = list.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + " add" + myTriangles.length + " elements time is");
+        System.out.println(name[name.length - 1] + " add " + myTriangles.length + " elements time is");
         System.out.println(estimatedTime);
 
     }
 
-    public static void addToListByIndex(List list,int index, MyTriangle... myTriangles) {
+    public static void addToListByIndex(List list, int index, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
         for (MyTriangle mt : myTriangles) {
-            list.add(index,mt);
+            list.add(index, mt);
         }
         estimatedTime = System.nanoTime() - startTime;
         String[] name = list.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + " add to index"+index+" " + myTriangles.length + " elements time is");
+        System.out.println(name[name.length - 1] + " add to index " + index + " " + myTriangles.length + " elements time is");
         System.out.println(estimatedTime);
     }
 
-    public static void removeFromList(List list, MyTriangle... myTriangles) {
+    public static void removeFromList(List list, int index) {
         startTime = System.nanoTime();
-        for (MyTriangle mt : myTriangles) {
-            list.remove(mt);
+        for(int i=0;i<countForList;i++){
+            list.remove(index);
         }
         estimatedTime = System.nanoTime() - startTime;
         String[] name = list.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + "remove " + myTriangles.length + " elements time is");
+        System.out.println(name[name.length - 1] + "remove " + countForList + " elements time is");
         System.out.println(estimatedTime);
     }
 
