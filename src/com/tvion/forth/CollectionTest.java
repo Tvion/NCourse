@@ -100,7 +100,7 @@ public class CollectionTest {
         for (int i = 0; i < count; i++) {
             arrayList.add(mt[i]);
         }
-        //Поначалу сокращал код таким образом
+//        Поначалу сокращал код таким образом
         endOfOperation(arrayList,"add",countForList);
 
 
