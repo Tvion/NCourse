@@ -157,25 +157,23 @@ public class CollectionTest {
         doForSet(hashSet,"remove",mt);
     }
 
+//Вариант еще короче
 
     public static void compareMaps(int countForMap) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         System.out.println("*****COMPARE_MAPS*****");
         System.out.println();
 
-        String[] operations={"put","containsKey","remove"};
+        String[] operationsForMap={"put","containsKey","remove"};
         Integer[] ranAddArray = new Integer[countForMap];
         for (int i = 0; i < countForMap; i++) {
             ranAddArray[i] = (int) (Math.random() * 2000);
         }
 
-        for(String operation:operations){
+        for(String operation:operationsForMap){
             doForMap(hashMap,operation,ranAddArray);
             doForMap(linkedHashMap,operation,ranAddArray);
             doForMap(treeMap,operation,ranAddArray);
         }
-
-
-
         System.out.println();
     }
 
@@ -192,12 +190,13 @@ public class CollectionTest {
         estimatedTime = System.nanoTime() - startTime;
         System.out.println(name[name.length-1]+" "+operation+" " + mt.length + " elements time is");
         System.out.println(estimatedTime);
+        System.out.println();
     }
 
 
     public static void doForMap(Map col,String operation,Integer... intArray) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass=col.getClass();
-        Method method=null;
+        Method method;
         if("containsKey".equals(operation)){
             method=colClass.getMethod(operation, Object.class);
         } else {
@@ -222,6 +221,7 @@ public class CollectionTest {
         }
         System.out.println(name[name.length-1]+" "+operation+" " + intArray.length + " elements time is");
         System.out.println(estimatedTime);
+        System.out.println();
     }
     
 /*
