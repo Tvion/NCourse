@@ -19,6 +19,11 @@ public class MainClass {
     public static final String[] operations = {"get", "add to index", "remove"};
 
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        testMyClass();
+        compareWithStandard();
+    }
+
+    public static void testMyClass(){
         //Создаем наш список
         myLinkedList = new MyLinkedList<>();
         for (int i = 0; i < 10; i++) {
@@ -45,8 +50,6 @@ public class MainClass {
         System.out.println("Index of 3+47i is " + myLinkedList.indexOf(mc));
         System.out.println(myLinkedList);
         System.out.println();
-
-        compareWithStandard();
     }
 
     public static void compareWithStandard() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -70,8 +73,6 @@ public class MainClass {
             doForList(myLinkedList, operation, myComplex);
             doForList(libraryLinkedList, operation, myComplex);
         }
-
-
     }
 
     public static void doForList(Object col, String operation, MyComplex... myComplexes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
