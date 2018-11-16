@@ -67,18 +67,14 @@ public class CollectionTest {
         for (int i = 0; i < count; i++) {
             arrayList.add(mt[i]);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("ArrayList add " + count + " elements time is");
-        System.out.println(estimatedTime);
+        endOfOperation(arrayList,"add",countForList);
 
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
             linkedList.add(mt[i]);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("LinkedList add " + count + " elements time is");
-        System.out.println(estimatedTime);
+        endOfOperation(linkedList,"add",countForList);
 
 
         System.out.println();
@@ -88,18 +84,13 @@ public class CollectionTest {
         for (int i = 0; i < count; i++) {
             arrayList.add(position, mt[i]);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("ArrayList add to index " + position + " " + count + " elements time is");
-        System.out.println(estimatedTime);
-
+        endOfOperation(arrayList,"add to index",countForList);
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
             linkedList.add(position, mt[i]);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("LinkedList add to index " + position + " " + count + " elements time is");
-        System.out.println(estimatedTime);
+        endOfOperation(linkedList,"add to index",countForList);
 
 
         System.out.println();
@@ -109,18 +100,14 @@ public class CollectionTest {
         for (int i = 0; i < count; i++) {
             arrayList.remove(position);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("ArrayList remove on index " + position + " " + count + " elements time is");
-        System.out.println(estimatedTime);
-
+        endOfOperation(arrayList,"remove",countForList);
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
             linkedList.remove(position);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("LinkedList remove on index " + position + " " + count + " elements time is");
-        System.out.println(estimatedTime);
+        endOfOperation(linkedList,"remove",countForList);
+
         System.out.println();
     }
 
@@ -141,9 +128,7 @@ public class CollectionTest {
         doForSet(linkedHashSet,"add",mt);
         doForSet(treeSet,"add",mt);
 
-
         System.out.println();
-
 
         doForSet(hashSet,"contains",mt);
         doForSet(linkedHashSet,"contains",mt);
@@ -151,19 +136,22 @@ public class CollectionTest {
 
         System.out.println();
 
+        doForSet(hashSet,"remove",mt);
+        doForSet(hashSet,"remove",mt);
+        doForSet(hashSet,"remove",mt);
 
-        doForSet(hashSet,"remove",mt);
-        doForSet(hashSet,"remove",mt);
-        doForSet(hashSet,"remove",mt);
+        System.out.println();
     }
 
 //Вариант еще короче
 
     public static void compareMaps(int countForMap) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        System.out.println();
         System.out.println("*****COMPARE_MAPS*****");
         System.out.println();
 
         String[] operationsForMap={"put","containsKey","remove"};
+
         Integer[] ranAddArray = new Integer[countForMap];
         for (int i = 0; i < countForMap; i++) {
             ranAddArray[i] = (int) (Math.random() * 2000);
@@ -173,8 +161,8 @@ public class CollectionTest {
             doForMap(hashMap,operation,ranAddArray);
             doForMap(linkedHashMap,operation,ranAddArray);
             doForMap(treeMap,operation,ranAddArray);
+            System.out.println();
         }
-        System.out.println();
     }
 
 
@@ -190,7 +178,6 @@ public class CollectionTest {
         estimatedTime = System.nanoTime() - startTime;
         System.out.println(name[name.length-1]+" "+operation+" " + mt.length + " elements time is");
         System.out.println(estimatedTime);
-        System.out.println();
     }
 
 
@@ -221,11 +208,10 @@ public class CollectionTest {
         }
         System.out.println(name[name.length-1]+" "+operation+" " + intArray.length + " elements time is");
         System.out.println(estimatedTime);
-        System.out.println();
     }
     
-/*
-    Сначала пробовал вставлять такой код после каждой операции
+
+
 
 
     public static void endOfOperation(Collection col,String operation, int count){
@@ -233,7 +219,7 @@ public class CollectionTest {
         String[] name=col.getClass().getName().split("\\.");
         System.out.println(name[name.length-1]+" "+operation+" "+ count + " elements time is");
         System.out.println(estimatedTime);
-    }*/
+    }
 }
 
 
