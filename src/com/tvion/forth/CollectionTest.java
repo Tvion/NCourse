@@ -181,9 +181,9 @@ public class CollectionTest {
 
     public static void doForMap(Map col, String operation, Integer... intArray) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass = col.getClass();
-        Method method=initMethod(colClass,operation);
+        Method method = initMethod(colClass, operation);
         method.setAccessible(true);
-        execMethod(col,method,operation,intArray);
+        execMethod(col, method, operation, intArray);
         System.out.println(getEndClassName(col) + " " + operation + " " + intArray.length + " elements time is");
         System.out.println(estimatedTime);
     }
@@ -216,15 +216,13 @@ public class CollectionTest {
         }
     }
 
-    public static String getEndClassName(Object obj){
+    public static String getEndClassName(Object obj) {
         String[] name = obj.getClass().getName().split("\\.");
-        return name[name.length-1];
+        return name[name.length - 1];
     }
 
 
-
-
-    //Можно конечно и обычными методами
+    //Можно, конечно, и обычными методами
 
     public static void addToList(List list, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
@@ -249,7 +247,7 @@ public class CollectionTest {
 
     public static void removeFromList(List list, int index) {
         startTime = System.nanoTime();
-        for(int i=0;i<countForList;i++){
+        for (int i = 0; i < countForList; i++) {
             list.remove(index);
         }
         estimatedTime = System.nanoTime() - startTime;
