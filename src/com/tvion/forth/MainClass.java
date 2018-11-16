@@ -35,7 +35,7 @@ public class MainClass {
 
         //Изменяем
         MyComplex l = new MyComplex(6, 44);
-        System.out.println("Index 4+44i element is " + myLinkedList.indexOf(l));
+        System.out.println("Index 6+44i element is " + myLinkedList.indexOf(l));
         System.out.println("Add 0+0 on index 3");
         myLinkedList.add(3, new MyComplex(0, 0));
         System.out.println("Get 2 element " + myLinkedList.get(1));
@@ -46,9 +46,9 @@ public class MainClass {
             System.out.println(c);
         }
 
-        MyComplex mc = new MyComplex(3, 47);
-        System.out.println("Index of 3+47i is " + myLinkedList.indexOf(mc));
+        //Проверка toArray и toString
         System.out.println(myLinkedList);
+
         System.out.println();
     }
 
