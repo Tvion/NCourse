@@ -20,17 +20,14 @@ public class CollectionTest {
     static final int countForList = 10000;
     static final int countForSet = 10000;
     static final int countForMap = 10000;
+    static final int positionForLists = 9000;
 
     public static void main(String[] args) {
     initMyTriangleCollections(size);
     initMyMaps(sizeForMaps);
-    compareLists(countForList);
+    compareLists(countForList,positionForLists);
     compareSets(countForSet);
     compareMaps(countForMap);
-
-
-
-
     }
 
     public static void initMyTriangleCollections(int size){
@@ -55,12 +52,16 @@ public class CollectionTest {
         }
     }
 
-    public static void compareLists(int count){
-        MyTriangle[] mt = new MyTriangle[count];
+    public static void compareLists(int count,int position){
+        System.out.println();
+        System.out.println("*****COMPARE_LISTS*****");
+        System.out.println();
 
+        MyTriangle[] mt = new MyTriangle[count];
         for (int i = 0; i < count; i++) {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
+
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
             arrayList.add(mt[i]);
@@ -78,9 +79,9 @@ public class CollectionTest {
         System.out.println("LinkedList add " + count + " elements time is");
         System.out.println(estimatedTime);
 
+
         System.out.println();
 
-        int position = 9000;
 
         startTime = System.nanoTime();
         for (int i = 0; i < count; i++) {
@@ -119,16 +120,19 @@ public class CollectionTest {
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("LinkedList remove on index " + position + " " + count + " elements time is");
         System.out.println(estimatedTime);
+        System.out.println();
     }
 
     public static void compareSets(int countForSet){
+        System.out.println();
         System.out.println("*****COMPARE_SETS*****");
         System.out.println();
-        MyTriangle[] mt = new MyTriangle[countForSet];
 
+        MyTriangle[] mt = new MyTriangle[countForSet];
         for (int i = 0; i < countForSet; i++) {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
+
         startTime = System.nanoTime();
         for (int i = 0; i < countForSet; i++) {
             hashSet.add(mt[i]);
