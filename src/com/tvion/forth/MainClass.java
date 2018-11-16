@@ -23,7 +23,7 @@ public class MainClass {
         compareWithStandard();
     }
 
-    public static void testMyClass(){
+    public static void testMyClass() {
         //Создаем наш список
         myLinkedList = new MyLinkedList<>();
         for (int i = 0; i < 10; i++) {
@@ -75,6 +75,8 @@ public class MainClass {
         }
     }
 
+    // Вопрос по подобным методам в классе CollectionTest
+    //Просто эксперимент
     public static void doForList(Object col, String operation, MyComplex... myComplexes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass = col.getClass();
         Method method;
