@@ -158,87 +158,25 @@ public class CollectionTest {
     }
 
 
-    public static void compareMaps(int countForMap){
+    public static void compareMaps(int countForMap) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         System.out.println("*****COMPARE_MAPS*****");
         System.out.println();
+
+        String[] operations={"put","containsKey","remove"};
         Integer[] ranAddArray = new Integer[countForMap];
         for (int i = 0; i < countForMap; i++) {
             ranAddArray[i] = (int) (Math.random() * 2000);
         }
-        startTime = System.nanoTime();
-        for (int i = 0; i < countForMap; i++) {
-            hashMap.put(ranAddArray[i], Character.getName(ranAddArray[i]));
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("HashMap add " + countForMap + " elements time is");
-        System.out.println(estimatedTime);
 
-        for (int i = 0; i < countForMap; i++) {
-            linkedHashMap.put(ranAddArray[i], Character.getName(ranAddArray[i]));
+        for(String operation:operations){
+            doForMap(hashMap,operation,ranAddArray);
+            doForMap(linkedHashMap,operation,ranAddArray);
+            doForMap(treeMap,operation,ranAddArray);
         }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("LinkedHashMap add " + countForMap + " elements time is");
-        System.out.println(estimatedTime);
 
-        for (int i = 0; i < countForMap; i++) {
-            treeMap.put(ranAddArray[i], Character.getName(ranAddArray[i]));
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("TreeHashMap add " + countForMap + " elements time is");
-        System.out.println(estimatedTime);
 
 
         System.out.println();
-
-
-        startTime = System.nanoTime();
-        for (int i = 0; i < countForMap; i++) {
-            hashMap.containsKey(ranAddArray[i]);
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("hashMap find elements" + " for time is");
-        System.out.println(estimatedTime);
-
-        startTime = System.nanoTime();
-        for (int i = 0; i < countForMap; i++) {
-            linkedHashMap.containsKey(ranAddArray[i]);
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("linkedHashMap find elements" + " for time is");
-        System.out.println(estimatedTime);
-
-        startTime = System.nanoTime();
-        for (int i = 0; i < countForMap; i++) {
-            treeMap.containsKey(ranAddArray[i]);
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("treeMap find elements" + " for time is");
-        System.out.println(estimatedTime);
-
-
-        System.out.println();
-
-
-        for (int i = 0; i < countForMap; i++) {
-            hashMap.remove(i, Character.getName(i));
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("HashMap remove " + countForMap + " elements time is");
-        System.out.println(estimatedTime);
-
-        for (int i = 0; i < countForMap; i++) {
-            linkedHashMap.remove(i, Character.getName(i));
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("LinkedHashMap remove " + countForMap + " elements time is");
-        System.out.println(estimatedTime);
-
-        for (int i = 0; i < countForMap; i++) {
-            treeMap.remove(i, Character.getName(i));
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println("TreeHashMap remove " + countForMap + " elements time is");
-        System.out.println(estimatedTime);
     }
 
 
@@ -257,7 +195,34 @@ public class CollectionTest {
     }
 
 
+    public static void doForMap(Map col,String operation,Integer... intArray) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class colClass=col.getClass();
+        Method method=null;
+        if("containsKey".equals(operation)){
+            method=colClass.getMethod(operation, Object.class);
+        } else {
+            method=colClass.getMethod(operation, Object.class,Object.class);
+        }
+        method.setAccessible(true);
+        String[] name=colClass.getName().split("\\.");
+        if("containsKey".equals(operation)){
+            startTime = System.nanoTime();
+            for (int i = 0; i < intArray.length; i++) {
+                method.invoke(col,intArray[i]);
+            }
+            estimatedTime = System.nanoTime() - startTime;
+        } else {
+            startTime = System.nanoTime();
 
+            startTime = System.nanoTime();
+            for (int i = 0; i < intArray.length; i++) {
+                method.invoke(col,intArray[i],Character.getName(intArray[i]));
+            }
+            estimatedTime = System.nanoTime() - startTime;
+        }
+        System.out.println(name[name.length-1]+" "+operation+" " + intArray.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
     
 /*
     Сначала пробовал вставлять такой код после каждой операции
