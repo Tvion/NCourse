@@ -124,8 +124,8 @@ public class CollectionTest {
         System.out.println();
 
         String[] operationsForSet = {"add", "contains", "remove"};
-        MyTriangle[] mt = new MyTriangle[countForSet];
 
+        MyTriangle[] mt = new MyTriangle[countForSet];
         for (int i = 0; i < countForSet; i++) {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
