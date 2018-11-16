@@ -88,6 +88,7 @@ public class MainClass {
     }
 
     public static Method initMethod(Class cl, String operation) throws NoSuchMethodException {
+        //В дальшейшем увеличивать числол поддерживаемых методов
         switch (operation) {
             case "add to index":
                 return cl.getMethod("add", int.class, Object.class);
