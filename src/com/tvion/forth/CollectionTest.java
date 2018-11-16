@@ -5,48 +5,35 @@ import com.tvion.first.MyTriangle;
 import java.util.*;
 
 public class CollectionTest {
-    public static void main(String[] args) {
+    static long startTime;
+    static long estimatedTime;
+    static List<MyTriangle> arrayList=new ArrayList<>();
+    static List<MyTriangle> linkedList=new LinkedList<>();
+    static Set<MyTriangle> hashSet = new HashSet<>();
+    static Set<MyTriangle> linkedHashSet = new LinkedHashSet<>();
+    static Set<MyTriangle> treeSet = new TreeSet<>();
+    static Map<Integer, String> hashMap = new HashMap<>();
+    static Map<Integer, String> linkedHashMap = new HashMap<>();
+    static Map<Integer, String> treeMap = new TreeMap<>();
+    static final int size = 200000;
+    static final int sizeForMaps=10000;
+    static final int countForList = 10000;
+    static final int countForSet = 10000;
+    static final int countForMap = 10000;
 
-        /*
-         *                       LinkedList vs ArrayList
-         *   Добавление в ArrayList получается медленнее, т.к. необоходимо переодически увеличивать массив
-         * при его заполнии (Создание новго массива, копирование в него значений существующего)
-         *
-         *   Вставка в один из этих двух списков зависит от позиции,
-         * на которую необходимо произвести вставку и колличества вставляемых данных
-         *
-         * ArrayList:
-         * Быстрый доступ к элементу, медленная вставка (Необходимость сдвигать все элементы справа
-         * от элемента с нужным индексом). Эффективен при добавление данных в конце списка, и не очень большом колличестве
-         * добавляемых данных в середине списка.
-         *
-         * LinkedList:
-         * Быстрое добавление элемента (Изменить ссылки в предыдущем и следующим узле) , медленное получения доступа (перебор
-         * элементов по очереди, время доступа растрет пропорционально размеру списка). Эффективен при добавление
-         * элементов в начале списка и добавление большого колличества элементов в середине списка.
-         *
-         *   С удалением дела обстоят так же как и с вставкой.
-         *
-         *                       Множества
-         *   ThreeSet является самым медленным множеством по результатам выполнения основных операций,
-         * его стоит использовать когда необходимо упорядочить элементы внутри множества.
-         * HashSet и LinkedSet меют постоянное время для основных операций.
-         * LinkedSet используется, когда необходимо хранить элементы в порядке ввода/доступа.
-         *
-         *                       Отображения
-         *   ThreeMap так же является самым медленным отображением.
-         *   Постоянное время для основных операций у HashMap и LinkedHashSet.
-         *
-         *
-         * */
-        long startTime;
-        long estimatedTime;
-        int size = 200000;
-        List<MyTriangle> arrayList = new ArrayList<>();
-        List<MyTriangle> linkedList = new LinkedList<>();
-        Set<MyTriangle> hashSet = new HashSet<>();
-        Set<MyTriangle> linkedHashSet = new LinkedHashSet<>();
-        Set<MyTriangle> treeSet = new TreeSet<>();
+    public static void main(String[] args) {
+    initMyTriangleCollections(size);
+    initMyMaps(sizeForMaps);
+    compareLists(countForList);
+    compareSets(countForSet);
+    compareMaps(countForMap);
+
+
+
+
+    }
+
+    public static void initMyTriangleCollections(int size){
         for (int i = 0; i < size; i++) {
             //MyTriangle реализует интерфейс Comparable<MyTriangle>
             MyTriangle mt = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, 5.0, 5.0);
@@ -56,8 +43,19 @@ public class CollectionTest {
             linkedHashSet.add(mt);
             treeSet.add(mt);
         }
+    }
 
-        int count = 1000;
+    public static void initMyMaps(int sizeForMap){
+        int[] ranArray = new int[sizeForMap];
+        for (int i = 0; i < sizeForMap; i++) {
+            ranArray[i] = (int) (Math.random() * 200);
+            hashMap.put(ranArray[i], Character.getName(ranArray[i]));
+            linkedHashMap.put(ranArray[i], Character.getName(ranArray[i]));
+            treeMap.put(ranArray[i], Character.getName(ranArray[i]));
+        }
+    }
+
+    public static void compareLists(int count){
         MyTriangle[] mt = new MyTriangle[count];
 
         for (int i = 0; i < count; i++) {
@@ -121,15 +119,12 @@ public class CollectionTest {
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("LinkedList remove on index " + position + " " + count + " elements time is");
         System.out.println(estimatedTime);
+    }
 
-
-        System.out.println();
+    public static void compareSets(int countForSet){
         System.out.println("*****COMPARE_SETS*****");
         System.out.println();
-
-
-        int countForSet = 100000;
-        mt = new MyTriangle[countForSet];
+        MyTriangle[] mt = new MyTriangle[countForSet];
 
         for (int i = 0; i < countForSet; i++) {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
@@ -216,26 +211,12 @@ public class CollectionTest {
         System.out.println("treeSet remove " + countForSet + " elements time is");
         System.out.println(estimatedTime);
         System.out.println();
+    }
 
 
-        System.out.println();
+    public static void compareMaps(int countForMap){
         System.out.println("*****COMPARE_MAPS*****");
         System.out.println();
-
-
-        Map<Integer, String> hashMap = new HashMap<>();
-        Map<Integer, String> linkedHashMap = new HashMap<>();
-        Map<Integer, String> treeMap = new TreeMap<>();
-        int sizeForMap = 10000;
-        int[] ranArray = new int[sizeForMap];
-        for (int i = 0; i < sizeForMap; i++) {
-            ranArray[i] = (int) (Math.random() * 200);
-            hashMap.put(ranArray[i], Character.getName(ranArray[i]));
-            linkedHashMap.put(ranArray[i], Character.getName(ranArray[i]));
-            treeMap.put(ranArray[i], Character.getName(ranArray[i]));
-        }
-
-        int countForMap = 10000;
         Integer[] ranAddArray = new Integer[countForMap];
         for (int i = 0; i < countForMap; i++) {
             ranAddArray[i] = (int) (Math.random() * 2000);
@@ -315,7 +296,6 @@ public class CollectionTest {
         System.out.println("TreeHashMap remove " + countForMap + " elements time is");
         System.out.println(estimatedTime);
     }
-
 
 }
 
