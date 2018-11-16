@@ -169,46 +169,62 @@ public class CollectionTest {
         Class colClass = col.getClass();
         Method method = colClass.getMethod(operation, Object.class);
         method.setAccessible(true);
-        String[] name = colClass.getName().split("\\.");
         startTime = System.nanoTime();
         for (int i = 0; i < mt.length; i++) {
             method.invoke(col, mt[i]);
         }
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println(name[name.length - 1] + " " + operation + " " + mt.length + " elements time is");
+        System.out.println(getEndClassName(col) + " " + operation + " " + mt.length + " elements time is");
         System.out.println(estimatedTime);
     }
 
 
     public static void doForMap(Map col, String operation, Integer... intArray) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass = col.getClass();
-        Method method;
-        if ("containsKey".equals(operation)) {
-            method = colClass.getMethod(operation, Object.class);
-        } else {
-            method = colClass.getMethod(operation, Object.class, Object.class);
-        }
+        Method method=initMethod(colClass,operation);
         method.setAccessible(true);
-        String[] name = colClass.getName().split("\\.");
-        if ("containsKey".equals(operation)) {
-            startTime = System.nanoTime();
-            for (int i = 0; i < intArray.length; i++) {
-                method.invoke(col, intArray[i]);
-            }
-            estimatedTime = System.nanoTime() - startTime;
-        } else {
-            startTime = System.nanoTime();
-
-            startTime = System.nanoTime();
-            for (int i = 0; i < intArray.length; i++) {
-                method.invoke(col, intArray[i], Character.getName(intArray[i]));
-            }
-            estimatedTime = System.nanoTime() - startTime;
-        }
-        System.out.println(name[name.length - 1] + " " + operation + " " + intArray.length + " elements time is");
+        execMethod(col,method,operation,intArray);
+        System.out.println(getEndClassName(col) + " " + operation + " " + intArray.length + " elements time is");
         System.out.println(estimatedTime);
     }
 
+    public static Method initMethod(Class cl, String operation) throws NoSuchMethodException {
+        //В дальшейшем увеличивать число поддерживаемых методов
+        switch (operation) {
+            case "containsKey":
+                return cl.getMethod(operation, Object.class);
+            default:
+                return cl.getMethod(operation, Object.class, Object.class);
+        }
+    }
+
+    public static void execMethod(Object col, Method method, String operation, Integer... intArray) throws InvocationTargetException, IllegalAccessException {
+        switch (operation) {
+            case "containsKey":
+                startTime = System.nanoTime();
+                for (int i = 0; i < intArray.length; i++) {
+                    method.invoke(col, intArray[i]);
+                }
+                estimatedTime = System.nanoTime() - startTime;
+                break;
+            default:
+                startTime = System.nanoTime();
+                for (int i = 0; i < intArray.length; i++) {
+                    method.invoke(col, intArray[i], Character.getName(intArray[i]));
+                }
+                estimatedTime = System.nanoTime() - startTime;
+        }
+    }
+
+    public static String getEndClassName(Object obj){
+        String[] name = obj.getClass().getName().split("\\.");
+        return name[name.length-1];
+    }
+
+
+
+
+    //Можно конечно и обычными методами
 
     public static void addToList(List list, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
@@ -216,8 +232,7 @@ public class CollectionTest {
             list.add(mt);
         }
         estimatedTime = System.nanoTime() - startTime;
-        String[] name = list.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + " add " + myTriangles.length + " elements time is");
+        System.out.println(getEndClassName(list) + " add " + myTriangles.length + " elements time is");
         System.out.println(estimatedTime);
 
     }
@@ -228,8 +243,7 @@ public class CollectionTest {
             list.add(index, mt);
         }
         estimatedTime = System.nanoTime() - startTime;
-        String[] name = list.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + " add to index " + index + " " + myTriangles.length + " elements time is");
+        System.out.println(getEndClassName(list) + " add to index " + index + " " + myTriangles.length + " elements time is");
         System.out.println(estimatedTime);
     }
 
@@ -239,8 +253,7 @@ public class CollectionTest {
             list.remove(index);
         }
         estimatedTime = System.nanoTime() - startTime;
-        String[] name = list.getClass().getName().split("\\.");
-        System.out.println(name[name.length - 1] + "remove " + countForList + " elements time is");
+        System.out.println(getEndClassName(list) + "remove " + countForList + " elements time is");
         System.out.println(estimatedTime);
     }
 
