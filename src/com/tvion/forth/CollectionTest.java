@@ -1,8 +1,6 @@
 package com.tvion.forth;
 
 import com.tvion.first.MyTriangle;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /*
@@ -56,7 +54,7 @@ public class CollectionTest {
     static final int countForMap = 10000;
     static final int positionForLists = 9000;
 
-    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void main(String[] args) {
         initMyTriangleCollections(size);
         initMyMaps(sizeForMaps);
         compareLists(countForList, positionForLists);
@@ -116,7 +114,7 @@ public class CollectionTest {
         System.out.println();
     }
 
-    public static void compareSets(int countForSet) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void compareSets(int countForSet){
 
         System.out.println();
         System.out.println("*****COMPARE_SETS*****");
@@ -152,7 +150,7 @@ public class CollectionTest {
     }
 
 
-    public static void compareMaps(int countForMap) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void compareMaps(int countForMap){
         System.out.println();
         System.out.println("*****COMPARE_MAPS*****");
         System.out.println();
