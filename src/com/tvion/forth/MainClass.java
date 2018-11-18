@@ -75,8 +75,10 @@ public class MainClass {
         }
     }
 
-    // Вопрос по подобным методам в классе CollectionTest
-    //Просто эксперимент
+//******************************************************************************************************************************************************
+
+    // Глеб, вопрос, можно ли писать подобные универсальные методы (ниже) или это совсем костыль?
+
     public static void doForList(Object col, String operation, MyComplex... myComplexes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass = col.getClass();
         Method method = initMethod(colClass, operation);

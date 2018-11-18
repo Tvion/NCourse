@@ -3,7 +3,6 @@ package com.tvion.forth;
 import com.tvion.first.MyTriangle;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 
 /*
@@ -51,7 +50,7 @@ public class CollectionTest {
     static Map<Integer, String> linkedHashMap = new HashMap<>();
     static Map<Integer, String> treeMap = new TreeMap<>();
     static final int size = 200000;
-    static final int sizeForMaps = 10000;
+    static final int sizeForMaps = 100000;
     static final int countForList = 10000;
     static final int countForSet = 10000;
     static final int countForMap = 10000;
@@ -97,8 +96,8 @@ public class CollectionTest {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
 
-        addToList(arrayList, mt);
-        addToList(linkedList, mt);
+        addToCollection(arrayList, mt);
+        addToCollection(linkedList, mt);
 
 
         System.out.println();
@@ -123,22 +122,31 @@ public class CollectionTest {
         System.out.println("*****COMPARE_SETS*****");
         System.out.println();
 
-        String[] operationsForSet = {"add", "contains", "remove"};
-
         MyTriangle[] mt = new MyTriangle[countForSet];
         for (int i = 0; i < countForSet; i++) {
             mt[i] = new MyTriangle(0.0, 0.0, (double) i, (Math.random() * 10 - 5) * i, i + 5.0, 5.0);
         }
-//******************************************************************************************************************************************************
 
-        // Глеб, вопрос, можно ли писать подобные универсальные методы (ниже) или это совсем костыль?
 
-        for (String operation : operationsForSet) {
-            doForSet(hashSet, operation, mt);
-            doForSet(linkedHashSet, operation, mt);
-            doForSet(treeSet, operation, mt);
-            System.out.println();
-        }
+        addToCollection(hashSet, mt);
+        addToCollection(linkedHashSet, mt);
+        addToCollection(treeSet, mt);
+
+
+        System.out.println();
+
+
+        containsInSet(hashSet, mt);
+        containsInSet(linkedHashSet, mt);
+        containsInSet(treeSet, mt);
+
+
+        System.out.println();
+
+
+        removeFromSet(hashSet, mt);
+        removeFromSet(linkedHashSet, mt);
+        removeFromSet(treeSet, mt);
 
         System.out.println();
     }
@@ -149,71 +157,32 @@ public class CollectionTest {
         System.out.println("*****COMPARE_MAPS*****");
         System.out.println();
 
-        String[] operationsForMap = {"put", "containsKey", "remove"};
-
         Integer[] ranAddArray = new Integer[countForMap];
         for (int i = 0; i < countForMap; i++) {
             ranAddArray[i] = (int) (Math.random() * 2000);
         }
 
-        for (String operation : operationsForMap) {
-            doForMap(hashMap, operation, ranAddArray);
-            doForMap(linkedHashMap, operation, ranAddArray);
-            doForMap(treeMap, operation, ranAddArray);
-            System.out.println();
-        }
-    }
+        putInMap(hashMap, ranAddArray);
+        putInMap(linkedHashMap, ranAddArray);
+        putInMap(treeMap, ranAddArray);
 
 
-    public static void doForSet(Collection col, String operation, MyTriangle... mt) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class colClass = col.getClass();
-        Method method = colClass.getMethod(operation, Object.class);
-        method.setAccessible(true);
-        startTime = System.nanoTime();
-        for (int i = 0; i < mt.length; i++) {
-            method.invoke(col, mt[i]);
-        }
-        estimatedTime = System.nanoTime() - startTime;
-        System.out.println(getEndClassName(col) + " " + operation + " " + mt.length + " elements time is");
-        System.out.println(estimatedTime);
-    }
+        System.out.println();
 
 
-    public static void doForMap(Map col, String operation, Integer... intArray) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class colClass = col.getClass();
-        Method method = initMethod(colClass, operation);
-        method.setAccessible(true);
-        execMethod(col, method, operation, intArray);
-        System.out.println(getEndClassName(col) + " " + operation + " " + intArray.length + " elements time is");
-        System.out.println(estimatedTime);
-    }
+        containInMap(hashMap, ranAddArray);
+        containInMap(linkedHashMap, ranAddArray);
+        containInMap(treeMap, ranAddArray);
 
-    public static Method initMethod(Class cl, String operation) throws NoSuchMethodException {
-        //В дальшейшем увеличивать число поддерживаемых методов
-        switch (operation) {
-            case "containsKey":
-                return cl.getMethod(operation, Object.class);
-            default:
-                return cl.getMethod(operation, Object.class, Object.class);
-        }
-    }
 
-    public static void execMethod(Object col, Method method, String operation, Integer... intArray) throws InvocationTargetException, IllegalAccessException {
-        switch (operation) {
-            case "containsKey":
-                startTime = System.nanoTime();
-                for (int i = 0; i < intArray.length; i++) {
-                    method.invoke(col, intArray[i]);
-                }
-                estimatedTime = System.nanoTime() - startTime;
-                break;
-            default:
-                startTime = System.nanoTime();
-                for (int i = 0; i < intArray.length; i++) {
-                    method.invoke(col, intArray[i], Character.getName(intArray[i]));
-                }
-                estimatedTime = System.nanoTime() - startTime;
-        }
+        System.out.println();
+
+
+        removeFromMap(hashMap, ranAddArray);
+        removeFromMap(linkedHashMap, ranAddArray);
+        removeFromMap(treeMap, ranAddArray);
+
+        System.out.println();
     }
 
     public static String getEndClassName(Object obj) {
@@ -222,18 +191,17 @@ public class CollectionTest {
     }
 
 
-    //Можно, конечно, и обычными методами
-
-    public static void addToList(List list, MyTriangle... myTriangles) {
+    public static void addToCollection(Collection<? super MyTriangle> collection, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
         for (MyTriangle mt : myTriangles) {
-            list.add(mt);
+            collection.add(mt);
         }
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println(getEndClassName(list) + " add " + myTriangles.length + " elements time is");
+        System.out.println(getEndClassName(collection) + " add " + myTriangles.length + " elements time is");
         System.out.println(estimatedTime);
 
     }
+
 
     public static void addToListByIndex(List list, int index, MyTriangle... myTriangles) {
         startTime = System.nanoTime();
@@ -245,7 +213,8 @@ public class CollectionTest {
         System.out.println(estimatedTime);
     }
 
-    public static void removeFromList(List list, int index) {
+
+    public static void removeFromList(List<? super MyTriangle> list, int index) {
         startTime = System.nanoTime();
         for (int i = 0; i < countForList; i++) {
             list.remove(index);
@@ -255,11 +224,62 @@ public class CollectionTest {
         System.out.println(estimatedTime);
     }
 
+
+
+
+    public static void containsInSet(Set<? super MyTriangle> set, MyTriangle... myTriangles) {
+        startTime = System.nanoTime();
+        for (MyTriangle mt : myTriangles) {
+            set.contains(mt);
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        System.out.println(getEndClassName(set) + " contains " + myTriangles.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
+
+
+    public static void removeFromSet(Set<? super MyTriangle> set, MyTriangle... myTriangles) {
+        startTime = System.nanoTime();
+        for (MyTriangle mt : myTriangles) {
+            set.remove(mt);
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        System.out.println(getEndClassName(set) + " remove " + myTriangles.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
+
+
+
+
+    public static void putInMap(Map map,Integer[] integers){
+        startTime = System.nanoTime();
+        for (int i=0;i<integers.length;i++) {
+            map.put(integers[i],Character.getName(integers[i]));
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        System.out.println(getEndClassName(map) + " put " + integers.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
+
+
+    public static void containInMap(Map map,Integer[] integers){
+        startTime = System.nanoTime();
+        for (int i=0;i<integers.length;i++) {
+            map.containsKey(integers[i]);
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        System.out.println(getEndClassName(map) + " contains " + integers.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
+
+
+    public static void removeFromMap(Map map,Integer[] integers){
+        startTime = System.nanoTime();
+        for (int i=0;i<integers.length;i++) {
+            map.remove(integers[i]);
+        }
+        estimatedTime = System.nanoTime() - startTime;
+        System.out.println(getEndClassName(map) + " remove " + integers.length + " elements time is");
+        System.out.println(estimatedTime);
+    }
 }
-
-
-
-
-
-
-
