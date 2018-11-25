@@ -8,15 +8,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class MainClass {
+public class MainClass{
     public static long startTime;
     public static long estimatedTime;
     public static List<MyComplex> libraryLinkedList;
     public static ILinkedList<MyComplex> myLinkedList;
-    public static final int ind = 6000;
-    public static final int size = 10000;
-    public static final int count = 10000;
-    public static final String[] operations = {"get", "add to index", "remove"};
+    public static final int IND = 6000;
+    public static final int SIZE = 10000;
+    public static final int COUNT = 10000;
+
+    enum Operations{GET,ADD_TO_INDEX,REMOVE}
 
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         testMyClass();
@@ -53,8 +54,8 @@ public class MainClass {
     }
 
     public static void compareWithStandard() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        MyComplex[] myComplex = new MyComplex[count];
-        for (int i = 0; i < count; i++) {
+        MyComplex[] myComplex = new MyComplex[COUNT];
+        for (int i = 0; i < COUNT; i++) {
             myComplex[i] = new MyComplex(i * i, i - 100);
         }
 
@@ -63,13 +64,13 @@ public class MainClass {
         libraryLinkedList = new LinkedList<>();
         myLinkedList.clear();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < SIZE; i++) {
             myLinkedList.add(new MyComplex(i, 50 - i));
             libraryLinkedList.add(new MyComplex(i, 50 - i));
         }
 
 
-        for (String operation : operations) {
+        for (Operations operation : Operations.values()) {
             doForList(myLinkedList, operation, myComplex);
             doForList(libraryLinkedList, operation, myComplex);
         }
@@ -79,7 +80,7 @@ public class MainClass {
 
     // Глеб, вопрос, можно ли писать подобные универсальные методы (ниже) или это совсем костыль?
 
-    public static void doForList(Object col, String operation, MyComplex... myComplexes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void doForList(Object col, Operations operation, MyComplex... myComplexes) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class colClass = col.getClass();
         Method method = initMethod(colClass, operation);
         method.setAccessible(true);
@@ -89,29 +90,29 @@ public class MainClass {
         System.out.println(estimatedTime);
     }
 
-    public static Method initMethod(Class cl, String operation) throws NoSuchMethodException {
+    public static Method initMethod(Class cl, Operations operation) throws NoSuchMethodException {
         //В дальшейшем увеличивать число поддерживаемых методов
         switch (operation) {
-            case "add to index":
+            case ADD_TO_INDEX:
                 return cl.getMethod("add", int.class, Object.class);
             default:
-                return cl.getMethod(operation, int.class);
+                return cl.getMethod(operation.toString().toLowerCase(), int.class);
         }
     }
 
-    public static void execMethod(Object col, Method method, String operation, MyComplex... myComplexes) throws InvocationTargetException, IllegalAccessException {
+    public static void execMethod(Object col, Method method, Operations operation, MyComplex... myComplexes) throws InvocationTargetException, IllegalAccessException {
         switch (operation) {
-            case "add to index":
+            case ADD_TO_INDEX:
                 startTime = System.nanoTime();
                 for (int i = 0; i < myComplexes.length; i++) {
-                    method.invoke(col, ind, myComplexes[i]);
+                    method.invoke(col, IND, myComplexes[i]);
                 }
                 estimatedTime = System.nanoTime() - startTime;
                 break;
             default:
                 startTime = System.nanoTime();
                 for (int i = 0; i < myComplexes.length; i++) {
-                    method.invoke(col, ind);
+                    method.invoke(col, IND);
                 }
                 estimatedTime = System.nanoTime() - startTime;
         }

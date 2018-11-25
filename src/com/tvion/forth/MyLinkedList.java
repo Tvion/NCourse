@@ -2,6 +2,7 @@ package com.tvion.forth;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -110,7 +111,6 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return size;
     }
 
-
     @SuppressWarnings("uncheked")
     public E[] toArray() {
         if (size == 0) return null;
@@ -185,9 +185,3 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
 }
-
-
-
-
-
-
