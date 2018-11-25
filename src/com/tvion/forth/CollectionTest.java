@@ -47,19 +47,19 @@ public class CollectionTest {
     static Map<Integer, String> hashMap = new HashMap<>();
     static Map<Integer, String> linkedHashMap = new HashMap<>();
     static Map<Integer, String> treeMap = new TreeMap<>();
-    static final int size = 200000;
-    static final int sizeForMaps = 100000;
-    static final int countForList = 10000;
-    static final int countForSet = 10000;
-    static final int countForMap = 10000;
-    static final int positionForLists = 9000;
+    static final int SIZE = 200000;
+    static final int SIZE_FOR_MAPS = 100000;
+    static final int COUNT_FOR_LIST = 10000;
+    static final int COUNT_FOR_SET = 10000;
+    static final int COUNT_FOR_MAP = 10000;
+    static final int POSITION_FOR_LISTS = 9000;
 
     public static void main(String[] args) {
-        initMyTriangleCollections(size);
-        initMyMaps(sizeForMaps);
-        compareLists(countForList, positionForLists);
-        compareSets(countForSet);
-        compareMaps(countForMap);
+        initMyTriangleCollections(SIZE);
+        initMyMaps(SIZE_FOR_MAPS);
+        compareLists(COUNT_FOR_LIST, POSITION_FOR_LISTS);
+        compareSets(COUNT_FOR_SET);
+        compareMaps(COUNT_FOR_MAP);
     }
 
     public static void initMyTriangleCollections(int size) {
@@ -214,11 +214,11 @@ public class CollectionTest {
 
     public static void removeFromList(List<? super MyTriangle> list, int index) {
         startTime = System.nanoTime();
-        for (int i = 0; i < countForList; i++) {
+        for (int i = 0; i < COUNT_FOR_LIST; i++) {
             list.remove(index);
         }
         estimatedTime = System.nanoTime() - startTime;
-        System.out.println(getEndClassName(list) + "remove " + countForList + " elements time is");
+        System.out.println(getEndClassName(list) + "remove " + COUNT_FOR_LIST + " elements time is");
         System.out.println(estimatedTime);
     }
 
